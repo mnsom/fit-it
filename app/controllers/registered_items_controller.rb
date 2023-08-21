@@ -1,0 +1,2 @@
+class RegisteredItemsController < ApplicationController
+end
