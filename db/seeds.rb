@@ -27,3 +27,8 @@ item4 = Item.create!(title: "bed", d_length: 200, d_width: 100)
 item4.photo.attach(io: File.open("app/assets/images/seed_item_pic/Bed-icon-1.svg"),
                     filename: "Bed-icon-1.svg",
                     content_type: 'image/svg')
+
+layout1 = Layout.create!(title: "Meguro", scale_ratio: 1.5, user: oscar)
+layout1.photo.attach(io: File.open("app/assets/images/seed_item_pic/Meguro.jpg"),
+                    filename: "Meguro.jpg",
+                    content_type: 'image/jpg')
