@@ -4,11 +4,14 @@ Item.destroy_all
 require "open-uri"
 
 oscar = User.create!(email: "oscar@me.com", password: "secret", name: "Oscar")
-item1.photo.attach(io: File.open("app/assets/images/seed_item_pic/oscar.png"),
+oscar.photo.attach(io: File.open("app/assets/images/seed_item_pic/oscar.png"),
                     filename: "oscar.png",
                     content_type: 'image/png')
 
 minori = User.create!(email: "minori@me.com", password: "secret")
+minori.photo.attach(io: File.open("app/assets/images/seed_item_pic/minori.png"),
+                    filename: "minori.png",
+                    content_type: 'image/png')
 
 
 item1 = Item.create!(title: "table", d_length: 50, d_width: 90)
