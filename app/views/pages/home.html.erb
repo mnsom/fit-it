@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<div class = "wrapper">
+  <%= render 'shared/landingbanner' %>
+  <div class="container text-center">
+      <%= image_tag "LandingPageBg.svg" %>
+  </div>
+  <br>
+  <div class="container text-center">
+      <div class="col align-self-center mb-2">
+        <button type="button" class="btn btn-primary" style="--round-corners: 15px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.5rem;"> Login</button>
+      </div>
+      <div class="col align-self-center">
+        <a href="#" class="login-btn">Sign up</a>
+      </div>
+  </div>
+</div>
