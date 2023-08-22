@@ -6,11 +6,19 @@
   </div>
   <br>
   <div class="container text-center">
-      <div class="col align-self-center mb-2">
-        <button type="button" class="btn btn-primary" style="--round-corners: 15px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.5rem;"> Login</button>
-      </div>
-      <div class="col align-self-center">
-        <a href="#" class="login-btn">Sign up</a>
-      </div>
-  </div>
+    <% if user_signed_in? %>
+    <%=link_to "Login", layouts_path%>
+      <% else %>
+        <div class="col align-self-center mb-2">
+          <%= link_to new_user_session_path do %>
+            <button type="button" class="btn btn-primary" style="--round-corners: 15px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.5rem;"> Login</button>
+          <% end %>
+          </div>
+          <div class="col align-self-center">
+          <%= link_to new_user_registration_path do %>
+            <a href="/users/sign_up" class="login-btn">Sign up</a>
+          <% end %>
+        </div>
+    </div>
+  <% end %>
 </div>
