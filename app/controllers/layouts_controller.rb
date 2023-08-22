@@ -13,7 +13,7 @@ class LayoutsController < ApplicationController
     @layout = Layout.new(layout_params)
     @layout.user = current_user
     if @layout.save
-      redirect_to layout_path(@layout)
+      redirect_to layouts_path(@layouts)
     else
       render :index, status: :unprocessable_entity
     end
@@ -22,6 +22,6 @@ class LayoutsController < ApplicationController
   private
 
   def layout_params
-    params.require(:layout).permit(:title, :photos)
+    params.require(:layout).permit(:title, :photo)
   end
 end
