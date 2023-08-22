@@ -1,0 +1,70 @@
+
+.nav-bar{
+  position: relative;
+  background-color: #3584bb;
+  height: 300px;
+  width: 60px;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  background-color: #232C33;
+  border-radius: 32px;
+}
+
+.list{
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  position:absolute;
+  bottom:30px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.list a{
+  text-decoration: none;
+  color:white;
+  width:100%;
+}
+.list-btn{
+  margin:24px auto 0;
+}
+// ↓ハンバーガーバー（３本ライン）
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  position: absolute;
+}
+.menu-btn span:before {
+  bottom: 8px;
+}
+.menu-btn span:after {
+  top: 8px;
+}
+#menu-btn-check:checked ~ .menu-btn span {
+  background-color: rgba(255, 255, 255, 0);
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+  bottom: 0;
+  transform: rotate(45deg);
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+// ↑ハンバーガーバー（３本ライン）
+
+.hamburger-menu{
+  position: absolute;
+  top:8px;
+  margin: 18px;
+}
+.hamburger-menu input{
+  display: none;
+}

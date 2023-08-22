@@ -5,6 +5,10 @@ class LayoutsController < ApplicationController
   end
 
   def edit
-    @layout = Layout.find(params[:id])
+    @layout = User.find(params[:id])
+  end
+
+  def show
+    @layout = User.find(params[:id])
   end
 end
