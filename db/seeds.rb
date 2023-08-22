@@ -4,6 +4,10 @@ Item.destroy_all
 require "open-uri"
 
 oscar = User.create!(email: "oscar@me.com", password: "secret", name: "Oscar")
+item1.photo.attach(io: File.open("app/assets/images/seed_item_pic/oscar.png"),
+                    filename: "oscar.png",
+                    content_type: 'image/png')
+
 minori = User.create!(email: "minori@me.com", password: "secret")
 
 
