@@ -1,0 +1,27 @@
+<div class="cards">
+<%# <%= link_to layout_path(layout) do %>
+<div class="card-trip">
+          <%= image_tag 'add_item.svg' %>
+        <div class="card-trip-infos">
+          <div>
+            <%# <h2><%= layout.title %>
+          </div>
+        </div>
+</div>
+  <% @layouts.each do |layout| %>
+      <div class="card-trip">
+          <img src="<%= cl_image_path(layout.photo.key)%>" >
+        <div class="card-trip-infos">
+          <div class="d-flex justify-content-between">
+            <%= layout.title %>
+            <%= layout.created_at.to_date %>
+          </div>
+    <div>
+        <%= link_to "show", layout_path(layout) %>
+        <%= link_to "edit", layout_path(layout) %>
+    </div>
+
+        </div>
+
+  <% end %>
+</div>
