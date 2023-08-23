@@ -8,6 +8,7 @@ class LayoutsController < ApplicationController
   def edit
     @layout = Layout.find(params[:id])
     authorize @layout
+    @item = Item.new
   end
 
   def create
