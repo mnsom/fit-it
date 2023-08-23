@@ -1,0 +1,26 @@
+<div>
+  <!-- Button trigger modal -->
+  <div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cretate-layout">
+      Create Layout
+    </button>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="cretate-layout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for(@layout) do |f| %>
+            <%= f.input :title %>
+            <%= f.input :photo, as: :file %>
+            <%= f.button :submit, class:"btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
