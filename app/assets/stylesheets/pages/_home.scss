@@ -2,11 +2,16 @@
 .container img {
   max-width: 800px;
   margin-top: 10px;
-  opacity: 0.5;
 }
 
 a {
   text-decoration: none;
   font-size: 20px;
   padding-top: 10px;
+}
+
+#edit-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
