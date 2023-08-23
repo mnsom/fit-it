@@ -1,8 +1,8 @@
 <div class="cards">
   <div class="card-trip" id="icon">
-  <div class="icon-img-container">
-    <%= image_tag 'add_item.svg' %>
-  </div>
+    <div class="icon-img-container">
+      <%= image_tag 'add_item.svg' %>
+    </div>
     <div class="card-info-container icon-info">
       <div class="card-trip-infos">
         <div>
@@ -34,7 +34,6 @@
       </div>
     </div>
   </div>
-
   <% @layouts.each do |layout| %>
     <div class="card-trip">
       <img src="<%= cl_image_path(layout.photo.key)%>">
@@ -56,7 +55,7 @@
         </div>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="layout-<%= layout.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" data-controller="download-button" id="layout-<%= layout.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -65,6 +64,11 @@
             </div>
             <div class="modal-body">
               <img src="<%= cl_image_path(layout.photo.key)%>" >
+              <canvas id="dummycanvas" width="150" height="150" data-download-button-target="canvas"></canvas>
+              <script type="application/javascript">
+                document.getElementById("dummycanvas").getContext("2d").fillStyle = "rgb(200, 0, 0)";
+                document.getElementById("dummycanvas").getContext("2d").fillRect(10, 10, 50, 50);
+              </script>
             </div>
             <div class="modal-footer d-flex justify-content-between">
               <div>
@@ -72,7 +76,7 @@
               </div>
               <div>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
+                <button type="button" data-action="click->download-button#download" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
               </div>
             </div>
           </div>
