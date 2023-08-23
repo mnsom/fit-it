@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     resources :registered_items, only: :create
   end
   resources :registered_items, only: %i[update destroy]
+  resources :items, only: :create
 end

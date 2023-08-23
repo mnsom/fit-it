@@ -1,77 +1,28 @@
 <div class="cards">
-  <div class="card-trip">
-    <%= image_tag 'add_item.svg', class: "m-5" %>
-    <div class="card-trip-infos">
-      <div>
-        <!-- Button trigger modal -->
-        <div>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cretate-layout">
-            Create Layout
-          </button>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="cretate-layout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <%= simple_form_for(@layout) do |f| %>
-                  <%= f.input :title %>
-                  <%= f.input :photo, as: :file %>
-                  <%= f.button :submit, class:"btn btn-primary" %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="card-trip" id="icon">
+    <div class="icon-img-container">
+      <%= image_tag 'add_item.svg' %>
+    </div>
+    <div class="card-info-container icon-info">
+      <div class="card-trip-infos">
+        <%= render 'shared/modal_add_layout' %>
       </div>
     </div>
   </div>
   <% @layouts.each do |layout| %>
     <div class="card-trip">
-      <img src="<%= cl_image_path(layout.photo.key)%>" >
-      <div class="card-trip-infos">
-        <div class="d-flex justify-content-between">
-          <%= layout.title %>
-        </div>
-        <div>
-          <%= layout.created_at.to_date %>
-        </div>
-      </div>
-      <div class="mb-2 d-flex justify-content-around">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#layout-<%= layout.id %>">
-          View
-        </button>
-        <%= link_to "Edit", edit_layout_path(layout), class:"btn btn-primary" %>
-      </div>
-      <!-- Modal -->
-      <div class="modal fade" id="layout-<%= layout.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">preview</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <img src="<%= cl_image_path(layout.photo.key)%>" >
-            </div>
-            <div class="modal-footer d-flex justify-content-between">
-              <div>
-                <h3><%= layout.title %></h3>
-              </div>
-              <div>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
-              </div>
-            </div>
+      <img src="<%= cl_image_path(layout.photo.key)%>">
+      <div class="card-info-container">
+        <div class="card-trip-infos">
+          <div class="d-flex justify-content-between">
+            <%= layout.title %>
+          </div>
+          <div>
+            <%= layout.created_at.to_date %>
           </div>
         </div>
+        <%= render 'shared/modal_view_layout', layout: layout %>
       </div>
     </div>
   <% end %>
-</div>
 </div>
