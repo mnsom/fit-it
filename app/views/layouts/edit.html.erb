@@ -1,7 +1,7 @@
 <%= render "shared/navbar" %>
 <%= render 'shared/edit_navbar' %>
-<%= render 'shared/modal_create_items' %>
+<%= render 'shared/modal_create_items', layout: @layout, item: @item %>
 <div class="container my-3">
-   <%= render 'canvas'  %>
+  <%= render 'layouts/canvas', layout: @layout  %>
   <img src="<%= cl_image_path(@layout.photo.key)%>" >
 </div>

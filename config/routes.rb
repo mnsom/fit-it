@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :layouts do
     resources :registered_items, only: :create
+    resources :items, only: :create
   end
   resources :registered_items, only: %i[update destroy]
-  resources :items, only: :create
 end

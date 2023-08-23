@@ -11,23 +11,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for(@item) do |f| %>
+        <%= simple_form_for [layout, item] do |f| %>
           <%= f.input :title, label:"name" %>
           <%= f.input :d_length, label:"length" %>
           <%= f.input :d_width, label:"width" %>
-          <%= f.input :icon, label:"type", as: :radio_buttons,
-            collection_wrapper_tag: 'div',
-            collection_wrapper_class: 'category-wrapper',
-            item_wrapper_class: 'category-item',
-            input_html: {class: 'category-selector'},
-            collection: Item::CATEGORIES %>
+          <fieldset class="mb-3 radio_buttons required item_icon">
+            <legend class="col-form-label pt-0">type <abbr title="required">*</abbr>
+            </legend>
+            <div class="category-wrapper">
+              <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
+              <% Icon.all.each do |icon| %>
+                <div class="category-item">
+                  <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
+                  <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
+                    <%= cl_image_tag(icon.photo.key) %>
+                    <%= icon.name %>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+          </fieldset>
           <%= f.button :submit, class:"btn btn-primary" %>
         <% end %>
       </div>
-      <%# <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> %>
     </div>
   </div>
 </div>
