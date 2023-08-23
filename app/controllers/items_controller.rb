@@ -2,10 +2,12 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user = current_user
+    @layout = Layout.find(params[:layout_id])
+    authorize @item
     if @item.save
       redirect_to edit_layout_path(@layout)
     else
-      render :edit, status: :unprocessable_entity
+      render 'layouts/edit', status: :unprocessable_entity
     end
   end
 
