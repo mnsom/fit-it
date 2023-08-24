@@ -43,6 +43,7 @@ class LayoutsController < ApplicationController
     @layout = Layout.find(params[:id])
     authorize @layout
     @layout.destroy
+    redirect_to layouts_path
   end
 
   private
