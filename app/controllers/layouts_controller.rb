@@ -23,6 +23,12 @@ class LayoutsController < ApplicationController
     end
   end
 
+  def destroy
+    @layout = Layout.find(params[:id])
+    authorize @layout
+    @layout.destroy
+  end
+
   private
 
   def layout_params
