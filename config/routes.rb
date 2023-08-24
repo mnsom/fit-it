@@ -10,4 +10,12 @@ Rails.application.routes.draw do
     resources :items, only: :create
   end
   resources :registered_items, only: %i[update destroy]
+
+  resources :layouts do
+    member do
+      post :duplicate
+    end
+    # other routes
+  end
+
 end

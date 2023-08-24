@@ -14,6 +14,10 @@ class LayoutPolicy < ApplicationPolicy
     true
   end
 
+  def duplicate?
+    true
+  end
+
   def destroy?
     record.user == user
   end
