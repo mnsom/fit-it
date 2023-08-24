@@ -25,7 +25,7 @@ export default class extends Controller {
 
     //insert a furniture Icon into the Layout
     furnitures.forEach(element => {
-      fabric.Image.fromURL(element.url+".jpg", function(img) {
+      fabric.Image.fromURL(element.url+".jpg", (img) => {
         var oImg = img.set({ left: element.left, top: element.top}).scale(0.25);
         canvas.add(oImg);
         oImg.on('modified',() => {
