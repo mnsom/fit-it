@@ -11,7 +11,21 @@
   </div>
   <% @layouts.each do |layout| %>
     <div class="card-trip">
+    <% if layout.photo.attached?  %>
       <img src="<%= cl_image_path(layout.photo.key)%>">
+    <% end %>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-ellipsis"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <%= link_to "Duplicate", duplicate_layout_path(layout), data: { turbo_method: :post } %>
+          <%= link_to "Delete",layout_path(layout),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+        </ul>
+      </div>
+
+
       <div class="card-info-container">
         <div class="card-trip-infos">
           <div class="d-flex justify-content-between">
