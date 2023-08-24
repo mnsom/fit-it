@@ -5,10 +5,13 @@
     </div>
     <% @items.each do |item| %>
       <%= link_to  layout_registered_items_path(@layout, item_id: item.id),data: {turbo_method: :post} do %>
-      <div class="add-item">
-        <%= item.title %>
-        <img src="<%= cl_image_path(item.icon.photo.key)%>">
-      </div>
+        <div class="add-item">
+          <%= item.title %> <br>
+          <div id="item-size">
+            (<%= item.d_length %> × <%= item.d_width %>)
+            <img src="<%= cl_image_path(item.icon.photo.key)%>">
+          </div>
+        </div>
       <% end %>
     <% end %>
   </div>
