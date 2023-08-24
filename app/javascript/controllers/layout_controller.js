@@ -24,7 +24,8 @@ export default class extends Controller {
     });
 
     icons.forEach(element => {
-      fabric.Image.fromURL(element.url, function(img) {
+      console.log(element);
+      fabric.Image.fromURL(element.url+".jpg", function(img) {
         var oImg = img.set({ left: element.left, top: element.top}).scale(0.25);
         canvas.add(oImg);
       });
