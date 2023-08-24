@@ -5,7 +5,12 @@ class RegisteredItemPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
+
   def create?
+    user == record.layout.user
+  end
+
+  def update?
     user == record.layout.user
   end
 end

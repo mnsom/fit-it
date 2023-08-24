@@ -15,11 +15,23 @@ class LayoutsController < ApplicationController
     @items_hash = @layout.registered_items.map do |rg_item|
       {
         url: rg_item.icon_url,
+        id: rg_item.id,
         left: rg_item.x,
         top: rg_item.y
       }
     end
   end
+
+  # def update
+  #   @layout = Layout.find(params[:id])
+  #   @layout.update(layout_params)
+
+  #   respond_to do |format|
+  #     format.html { redirect_to movies_path }
+  #     format.text { render partial: :index, locals: {movie: @movie}, formats: [:html] }
+  #   end
+
+  # end
 
   def create
     @layouts = Layout.where(user: current_user)
