@@ -13,6 +13,14 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @item = Item.find(params[:id])
+    layout = Layout.find(params[:layout_id])
+    authorize @item
+    @item.destroy
+    redirect_to edit_layout_path(layout)
+  end
+
   private
 
   def item_params
