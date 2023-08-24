@@ -9,4 +9,21 @@ class RegisteredItemsController < ApplicationController
     @registered_item.save
     redirect_to edit_layout_path(@layout)
   end
+
+  def update
+    @registered_item = RegisteredItem.find(params[:id])
+    authorize @registered_item
+    @registered_item.update(registered_items_params)
+    head :ok
+    # respond_to do |format|
+    #   format.html { redirect_to movies_path }
+    #   format.text { render partial: :index, locals: {movie: @movie}, formats: [:html] }
+    # end
+  end
+
+  private
+
+  def registered_items_params
+    params.require(:registered_item).permit(:x, :y)
+  end
 end
