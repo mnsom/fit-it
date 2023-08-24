@@ -9,7 +9,7 @@ class LayoutsController < ApplicationController
     @layout = Layout.find(params[:id])
     authorize @layout
     @item = Item.new
-    @items = Item.all
+    @items = Item.where(user: current_user).or(Item.where(user: nil))
   end
 
   def create
