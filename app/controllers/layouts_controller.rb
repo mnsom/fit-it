@@ -10,6 +10,13 @@ class LayoutsController < ApplicationController
     authorize @layout
     @item = Item.new
     @items = Item.all
+    @items_hash = @layout.registered_items.map do |rg_item|
+      {
+        url: rg_item.icon_url,
+        left: rg_item.x,
+        top: rg_item.y
+      }
+    end
   end
 
   def create
