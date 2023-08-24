@@ -7,7 +7,6 @@ static values = {
 }
 
 static targets=["popup", "modal"]
-
   connect() {
     console.log("connected")
     if (this.popupValue){

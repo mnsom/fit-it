@@ -1,3 +1,5 @@
+require "open-uri"
+
 class LayoutsController < ApplicationController
 
   def index
@@ -22,6 +24,19 @@ class LayoutsController < ApplicationController
       render :index, status: :unprocessable_entity
     end
   end
+
+  def duplicate
+    # find the old one from the ID in the params
+    @layout = Layout.find(params[:id])
+    # duplicate it
+    @new_layout = @layout.dup
+    file = URI.open(@layout.photo.url)
+    @new_layout.photo.attach(io: file, filename: "image.jpg", content_type: "image/jpg")
+    authorize @new_layout
+    @new_layout.save
+    redirect_to layouts_path # for example
+  end
+
 
   def destroy
     @layout = Layout.find(params[:id])
