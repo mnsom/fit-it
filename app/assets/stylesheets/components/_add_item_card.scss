@@ -1,13 +1,20 @@
 .items {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
+  padding: 10px;
 }
 
 #item-size {
   font-size: 13px;
   color: black;
 }
+
+.popup-items {
+height: 600px;
+width: 500px;
+}
+
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
@@ -33,14 +40,14 @@
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
   .items {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
   .cards {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
@@ -67,7 +74,8 @@ background-color: dimgray;
 .add-item {
   background-color: azure;
   padding: 12px;
-  width: 100px;
+  width: 120px;
+  height: 220px;
 
   img {
     opacity: 1 !important;

@@ -1,9 +1,9 @@
-<div class="mb-2 d-flex justify-content-around">
+<div class="mb-2 d-flex justify-content-around" >
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#layout-<%= layout.id %>">
+  <button type="button" class="btn btn-primary btn-outline-light" style="width: 140px" data-bs-toggle="modal" data-bs-target="#layout-<%= layout.id %>">
     View
-  </button>
-  <%= link_to "Edit", edit_layout_path(layout), class:"btn btn-primary" %>
+  </button >
+  <%= link_to "Edit", edit_layout_path(layout), class:"btn btn-primary btn-outline-light text-white col-4" %>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="layout-<%= layout.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-controller="download-button">
