@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
     @layout = Layout.find(params[:layout_id])
     authorize @item
     if @item.save
-      redirect_to edit_layout_path(@layout)
+      redirect_to edit_layout_path(@layout, item_created: true)
     else
       @popup = true
       render 'layouts/edit', status: :unprocessable_entity

@@ -7,6 +7,6 @@ class RegisteredItemsController < ApplicationController
     @registered_item.layout = @layout
     authorize @registered_item
     @registered_item.save
-    redirect_to edit_layout_path(@layout)
+    redirect_to edit_layout_path(@layout, item_created: true)
   end
 end
