@@ -10,28 +10,25 @@
     </div>
   </div>
   <% @layouts.each do |layout| %>
-    <div class="card-trip">
+    <div class="card-trip position-relative">
       <% if layout.photo.attached?  %>
         <img src="<%= cl_image_path(layout.photo.key)%>">
       <% end %>
-      <div class="dropdown">
+      <div class="dropdown position-absolute top-0 end-0">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-ellipsis"></i>
         </button>
-
         <ul class="dropdown-menu p-2">
-        <div class="ms-1">
-          <i class="fa-regular fa-copy h4"></i>
-          <%= link_to "Duplicate", duplicate_layout_path(layout), data: { turbo_method: :post } %><br>
+          <div class="ms-1">
+            <i class="fa-regular fa-copy h3"  style="color: #07A2BF;"></i>
+            <%= link_to "Duplicate", duplicate_layout_path(layout), data: { turbo_method: :post } %><br>
           </div>
-<div class="d-flex align-item-center">
-          <%= image_tag 'trashcan-icon.svg', :size => '30x30'  %>
-          <%= link_to "Delete",layout_path(layout),
+          <div class="d-flex align-item-center">
+            <%= image_tag 'trashcan-icon.svg', :size => '30x30' %>
+            <%= link_to "Delete",layout_path(layout),
     data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
-</div>
-
+          </div>
         </ul>
-
       </div>
       <div class="card-info-container">
         <div class="card-trip-infos">
