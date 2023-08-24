@@ -1,9 +1,7 @@
 <div class="popup-items d-none" data-add-item-card-target="popup">
-
-
   <div class="items">
     <div class="additem" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    <%= image_tag 'add_item.svg' %>
+      <%= image_tag 'add_item.svg' %>
     </div>
     <% @items.each do |item| %>
       <div class="add-item">
@@ -12,5 +10,4 @@
       </div>
     <% end %>
   </div>
-
 </div>
