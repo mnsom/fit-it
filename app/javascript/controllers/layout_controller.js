@@ -22,9 +22,12 @@ export default class extends Controller {
       originY: 'center'
     });
 
+
     //insert a furniture Icon into the Layout
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.url, (img) => {
+      console.log(element);
+      fabric.Image.fromURL(element.url+".jpg", function(img) {
         var oImg = img.set({ left: element.left, top: element.top}).scale(0.25);
         canvas.add(oImg);
         oImg.on('modified',() => {

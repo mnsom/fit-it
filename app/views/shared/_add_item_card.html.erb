@@ -1,17 +1,20 @@
-<div class="popup-items d-none" data-add-item-card-target="popup">
+<div class="popup-items <%= "d-none" unless params[:item_created] == "true" %>" data-add-item-card-target="popup">
   <div class="items">
     <div class="additem" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <%= image_tag 'add_item.svg' %>
     </div>
     <% @items.each do |item| %>
       <%= link_to  layout_registered_items_path(@layout, item_id: item.id),data: {turbo_method: :post} do %>
-      <div class="add-item">
-        <%= item.title %>
-        <img src="<%= cl_image_path(item.icon.photo.key)%>">
-      </div>
-
+        <div class="add-item">
+          <%= item.title %>
+          <%= link_to "🗑️", item_path(item, 'layout_id': @layout),
+                 data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+          <div id="item-size">
+            (<%= item.d_length %> × <%= item.d_width %>)
+            <img src="<%= cl_image_path(item.icon.photo.key)%>">
+          </div>
+        </div>
       <% end %>
-
     <% end %>
   </div>
 </div>
