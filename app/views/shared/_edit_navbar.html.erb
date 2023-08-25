@@ -3,19 +3,21 @@
     <input type="checkbox" id="menu-btn-check">
     <label for="menu-btn-check" class="menu-btn"><span></span></label>
   </div>
-  <ul class="list">
-    <li class="list-btn">
-      <%= link_to "📏", class: "scale" %>
-    </li>
-    <li class="list-btn">
-      <p class="item" style="cursor: pointer" data-action="click->add-item-card#toggle">📦</p>
-    </li>
-    <li class="list-btn">
-      <%= link_to "🛒", class: "carts" %>
-    </li>
-  </li>
-  <li class="list-btn">
-    <%= link_to "📥", class: "download" %>
-  </li>
-</ul>
+    <ul class="list">
+      <li class="list-btn">
+       <button><i class="fa-solid fa-ruler"></i></button>
+      </li>
+      <li class="list-btn">
+        <button class="item" style="cursor: pointer" data-action="click->add-item-card#toggle"><i class="fa-solid fa-box-open"></i></button>
+      </li>
+      <li class="list-btn">
+       <button><i class="fa-solid fa-cart-shopping"></i></button>
+      </li>
+      <li class="list-btn">
+        <button type="button" data-action="click->download-edit#download" class=""><i class="fa-solid fa-download"></i></button>
+      </li>
+  </ul>
 </div>
+
+
+<%# <canvas id="canvas" width="150" height="150" data-download-button-target="canvas"></canvas> %>
