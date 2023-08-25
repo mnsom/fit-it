@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     layout = Layout.find(params[:layout_id])
     authorize @item
     @item.destroy
-    redirect_to edit_layout_path(layout)
+    redirect_to edit_layout_path(layout), status: :see_other
   end
 
   private
