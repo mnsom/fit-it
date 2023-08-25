@@ -81,3 +81,13 @@ background-color: dimgray;
     opacity: 1 !important;
   }
 }
+
+#delete-item-wrapper {
+  position: relative;
+}
+
+#delete-item {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}

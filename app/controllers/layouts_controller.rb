@@ -58,7 +58,6 @@ class LayoutsController < ApplicationController
     redirect_to layouts_path # for example
   end
 
-
   def destroy
     @layout = Layout.find(params[:id])
     authorize @layout
