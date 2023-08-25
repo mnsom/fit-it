@@ -62,9 +62,15 @@ export default class extends Controller {
 
     function deleteObject(eventData, transform) {
       const target = transform.target;
+      console.log(target.cacheKey);
       const canvas = target.canvas;
-          canvas.remove(target);
-          canvas.requestRenderAll();
+      canvas.remove(target);
+      canvas.requestRenderAll();
+      const csrfToken = document.querySelector("[name='csrf-token']").content
+      fetch(`/registered_items/${target.cacheKey}`, {
+        method: "DELETE",
+        headers: { "X-CSRF-Token": csrfToken }
+      })
     }
 
     function renderIcon(ctx, left, top, styleOverride, fabricObject) {

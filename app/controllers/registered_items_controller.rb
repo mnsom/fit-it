@@ -21,6 +21,13 @@ class RegisteredItemsController < ApplicationController
     # end
   end
 
+  def destroy
+    @registered_item = RegisteredItem.find(params[:id])
+    authorize @registered_item
+    @registered_item.destroy
+    redirect_to edit_layout_path(@registered_item.layout), status: :see_other
+  end
+
   private
 
   def registered_items_params
