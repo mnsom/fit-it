@@ -16,7 +16,7 @@ class RegisteredItemsController < ApplicationController
     @registered_item.update(registered_items_params)
     head :ok
     # respond_to do |format|
-    #   format.html { redirect_to movies_path }
+    #   format.html { redirect_to }
     #   format.text { render partial: :index, locals: {movie: @movie}, formats: [:html] }
     # end
   end
@@ -24,6 +24,6 @@ class RegisteredItemsController < ApplicationController
   private
 
   def registered_items_params
-    params.require(:registered_item).permit(:x, :y)
+    params.require(:registered_item).permit(:x, :y, :rotation)
   end
 end

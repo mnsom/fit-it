@@ -17,7 +17,8 @@ class LayoutsController < ApplicationController
         url: rg_item.icon_url,
         id: rg_item.id,
         left: rg_item.x,
-        top: rg_item.y
+        top: rg_item.y,
+        rotation: rg_item.rotation
       }
     end
   end
