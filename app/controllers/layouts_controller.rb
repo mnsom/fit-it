@@ -3,7 +3,7 @@ require "open-uri"
 class LayoutsController < ApplicationController
 
   def index
-    @layouts = policy_scope(Layout)
+    @layouts = policy_scope(Layout).order(created_at: :desc)
     @layout = Layout.new
   end
 
