@@ -13,4 +13,8 @@ class RegisteredItemPolicy < ApplicationPolicy
   def update?
     user == record.layout.user
   end
+
+  def destroy?
+    user == record.layout.user
+  end
 end

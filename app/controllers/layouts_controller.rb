@@ -17,7 +17,8 @@ class LayoutsController < ApplicationController
         url: rg_item.icon_url,
         id: rg_item.id,
         left: rg_item.x,
-        top: rg_item.y
+        top: rg_item.y,
+        rotation: rg_item.rotation
       }
     end
   end
@@ -57,12 +58,11 @@ class LayoutsController < ApplicationController
     redirect_to layouts_path # for example
   end
 
-
   def destroy
     @layout = Layout.find(params[:id])
     authorize @layout
     @layout.destroy
-    redirect_to layouts_path
+    redirect_to layouts_path, status: :see_other
   end
 
   private
