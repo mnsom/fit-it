@@ -16,7 +16,7 @@
         <div class="modal-body">
           <%= simple_form_for(@layout) do |f| %>
             <%= f.input :title %>
-            <%= f.input :photo, as: :file %>
+            <%= f.input :photo, as: :file, input_html: { class: 'd-none'}, label_html: { class: 'upload-photo'}, label: '🏠 Upload a layout' %>
             <%= f.button :submit, class:"btn btn-primary" %>
           <% end %>
         </div>
