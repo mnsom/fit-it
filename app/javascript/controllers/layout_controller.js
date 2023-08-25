@@ -26,11 +26,12 @@ export default class extends Controller {
     //insert a furniture Icon into the Layout
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.url+".jpg", (img) => {
-        var oImg = img.set({ left: element.left, top: element.top}).scale(0.25);
+        var oImg = img.set({ left: element.left, top: element.top, cacheKey: element.id }).scale(0.25);
+        // console.log(oImg);
         canvas.add(oImg);
         oImg.on('modified',() => {
           console.log('on oImg mouseup');
-          this.update(oImg, element.id)
+          this.update(oImg)
         });
       });
     });
@@ -60,9 +61,15 @@ export default class extends Controller {
 
     function deleteObject(eventData, transform) {
       const target = transform.target;
+      console.log(target.cacheKey);
       const canvas = target.canvas;
-          canvas.remove(target);
-          canvas.requestRenderAll();
+      canvas.remove(target);
+      canvas.requestRenderAll();
+      const csrfToken = document.querySelector("[name='csrf-token']").content
+      fetch(`/registered_items/${target.cacheKey}`, {
+        method: "DELETE",
+        headers: { "X-CSRF-Token": csrfToken }
+      })
     }
 
     function renderIcon(ctx, left, top, styleOverride, fabricObject) {
@@ -86,14 +93,14 @@ export default class extends Controller {
 
   }
 
-  update(oImg, id) {
+  update(oImg) {
     const csrfToken = document.querySelector("[name='csrf-token']").content
-    const url = `/registered_items/${id}`
+    const url = `/registered_items/${oImg.cacheKey}`
     console.log(oImg);
     const form = new FormData()
 
-    form.append("registered_item[x]", oImg.aCoords.bl.x)
-    form.append("registered_item[y]", oImg.aCoords.bl.y)
+    form.append("registered_item[x]", oImg.aCoords.tl.x)
+    form.append("registered_item[y]", oImg.aCoords.tl.y)
     fetch(url, {
       method: "PATCH",
       headers: { "X-CSRF-Token": csrfToken, "Accept": "text/plain" },
