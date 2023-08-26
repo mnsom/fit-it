@@ -14,9 +14,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <%= simple_form_for(@layout) do |f| %>
+          <%= simple_form_for @layout, html: { data: { controller: "photo-preview" } } do |f| %>
             <%= f.input :title %>
-            <%= f.input :photo, as: :file, input_html: { class: 'd-none'}, label_html: { class: 'upload-photo'}, label: '🏠 Upload a layout' %>
+            <%= image_tag "upload.jpeg", width: 300, class: "hidden", data: { photo_preview_target: "preview" } %>
+            <%= f.input :photo, as: :file, input_html: { class: 'd-none', data: { photo_preview_target: "input", action:"change->photo-preview#displayPreview" }}, label_html: { class: 'upload-photo'}, label: '🏠 Upload a layout' %>
             <%= f.button :submit, class:"btn btn-primary" %>
           <% end %>
         </div>
