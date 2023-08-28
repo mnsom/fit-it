@@ -2,19 +2,23 @@
 .nav-bar{
   display: flex;
   position: relative;
+  position: sticky;
+  top:80px;
+  left:80px;
   background-color: #07A2BF;
   height: 80px;
-  width:300px;
-  justify-content: flex-end;
+  width:240px;
+  justify-content: space-around;
   align-items: center;
   z-index: 90;
   border-radius: 10px;
   padding:12px
 }
-
+.space{
+  margin-right:10px;
+}
 .list{
   display: flex;
-  justify-content: center;
   list-style: none;
   vertical-align: center;
   margin:0;
@@ -25,12 +29,17 @@
   color:white;
   width:100%;
 }
+.item:hover{
+color: #232C33;
+}
 .item{
   border:none;
   font-size:32px;
   background-color: #07A2BF;
   color:white;
-  padding-top:12px;
+  margin:12px 4px 0;
+  padding: 0;
+  transition: 0.3s;
 }
 .item-title{
   font-size: 10px;
