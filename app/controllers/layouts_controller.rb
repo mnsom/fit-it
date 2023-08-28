@@ -14,6 +14,8 @@ class LayoutsController < ApplicationController
     @items = Item.where(user: current_user).or(Item.where(user: nil))
     @items_hash = @layout.registered_items.map do |rg_item|
       {
+        width: rg_item.width,
+        length: rg_item.length,
         url: rg_item.icon_url,
         id: rg_item.id,
         left: rg_item.x,

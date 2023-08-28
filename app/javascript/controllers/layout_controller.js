@@ -3,15 +3,16 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="layout"
 
 export default class extends Controller {
-  static values = {imgUrl: String, furnitures: String}
+  static values = {imgUrl: String, furnitures: String, scale: Number}
   connect() {
     console.log("hello from layout_controller.js")
-    console.log(this.element);
+    // console.log(this.element);
     const furnitures = JSON.parse(this.furnituresValue)
-    console.log(furnitures);
+    // console.log(furnitures);
+    console.log(this.scaleValue);
 
     const canvas = new fabric.Canvas('canvas')
-    // center the image in the canvas
+    // center and add the image in the canvas
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
       scaleX:1,
@@ -26,8 +27,26 @@ export default class extends Controller {
 
     //insert a furniture Icon into the Layout
     furnitures.forEach(element => {
-      fabric.Image.fromURL(element.url+".jpg", (img) => {
-        var oImg = img.set({ left: element.left, top: element.top, angle: element.rotation, cacheKey: element.id }).scale(0.25);
+      fabric.Image.fromURL(element.url+".png", (img) => {
+        // console.log(img);
+        const itemScaleX = element.width / img.width
+        const itemScaleY = element.length / img.height
+        console.log(element.width);
+
+        var oImg = img.set({
+                            // scaleToWidth: element.width*itemScale,
+                            // scaleToHeight:  element.length*itemScale,
+                            scaleX: itemScaleX / this.scaleValue,
+                            scaleY: itemScaleY / this.scaleValue,
+                            left: element.left,
+                            top: element.top,
+                            angle: element.rotation,
+                            cacheKey: element.id
+                            });
+        // oImg.set({
+        //   scaleX: scale,
+        //   scaleY: scale
+        // });
         // console.log(element);
         console.log(oImg);
         canvas.add(oImg);
@@ -45,7 +64,7 @@ export default class extends Controller {
     img.crossOrigin = "anonymous"
     img.src = deleteIcon;
 
-    // Settings for the customization thingymaggi
+    // Settings for the Grab&Drag customization control
     fabric.Object.prototype.transparentCorners = false;
     fabric.Object.prototype.cornerColor = '#232C33';
     fabric.Object.prototype.cornerStyle = 'circle';
@@ -96,6 +115,7 @@ export default class extends Controller {
 
   }
 
+  // Save the current location of all icons inside the canvas
   update(oImg) {
     const csrfToken = document.querySelector("[name='csrf-token']").content
     const url = `/registered_items/${oImg.cacheKey}`
