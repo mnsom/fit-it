@@ -14,7 +14,9 @@
             <%= item.title %>
             <div id="item-size">
               (<%= item.d_length %> × <%= item.d_width %>)
-              <img src="<%= cl_image_path(item.icon.photo.key)%>">
+              <img data-controller="items-size"
+                    data-items-size-dimensions-value = "<%= [item.d_width, item.d_length].to_json %>"
+                   src="<%= cl_image_path(item.icon.photo.key)%>">
             </div>
           </div>
         <% end %>
