@@ -11,7 +11,11 @@
         </div>
         <%= link_to  layout_registered_items_path(@layout, item_id: item.id),data: {turbo_method: :post} do %>
           <div class="add-item">
-            <%= item.title %>
+            <% if item.title.split(" ").count > 1 %>
+              <p><%= item.title.split.first %></p>
+            <% else %>
+              <p><%= item.title[0..5] %><%= item.title.length > 6 ? "..." : ""%></p>
+            <% end %>
             <div id="item-size">
               (<%= item.d_length %> × <%= item.d_width %>)
               <img data-controller="items-size"

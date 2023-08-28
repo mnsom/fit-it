@@ -1,5 +1,5 @@
-User.destroy_all
 Item.destroy_all
+User.destroy_all
 Icon.destroy_all
 
 require "open-uri"

@@ -9,9 +9,22 @@
   max-height: 150px;
 }
 
+.add-item p {
+  margin: 0;
+  padding: 0;
+}
+
 #item-size {
   font-size: 13px;
   color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#item-size img {
+  height: 50%;
+  transform: none !important;
 }
 
 .popup-items {
