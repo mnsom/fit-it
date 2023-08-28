@@ -5,15 +5,23 @@
   padding: 10px;
 }
 
+.add-item{
+  max-height: 150px;
+}
+
 #item-size {
   font-size: 13px;
   color: black;
 }
 
 .popup-items {
-height: 600px;
-width: 500px;
-}
+  height: 600px;
+  width: 500px;
+  max-height: 316px;
+  overflow-y: scroll;
+  padding: 24px;
+  background-color: dimgray;
+  }
 
 
 // Smallest device
@@ -49,13 +57,6 @@ width: 500px;
   .cards {
     grid-template-columns: 1fr 1fr 1fr;
   }
-}
-
-.popup-items {
-max-height: 316px;
-overflow-y: scroll;
-padding: 24px;
-background-color: dimgray;
 }
 
 .edit-content {
