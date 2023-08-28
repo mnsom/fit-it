@@ -6,3 +6,29 @@
   background: white;
   border-radius: 2px;
 }
+
+.modal-body{
+  text-align: center;
+  width:100%;
+  display: block;
+  .btn{
+    width:200px;
+    margin-bottom:0;
+  }
+}
+
+#icon .modal-body img{
+  width:320px;
+  height:320px;
+  margin-bottom: 20px;
+  margin-top:0;
+}
+
+.modal-body input{
+  width:320px;
+  margin:0 auto;
+}
+
+.upload-photo{
+  margin-bottom: 0;
+}

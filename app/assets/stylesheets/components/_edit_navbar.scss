@@ -1,34 +1,50 @@
 
 .nav-bar{
   display: flex;
-  flex-flow: column;
   position: relative;
+  position: sticky;
+  top:80px;
+  left:80px;
   background-color: #07A2BF;
-  height: 300px;
-  width: 80px;
-  justify-content: center;
+  height: 80px;
+  width:240px;
+  justify-content: space-around;
   align-items: center;
   z-index: 90;
-  border-radius: 32px;
+  border-radius: 10px;
+  padding:12px
 }
-
+.space{
+  margin-right:10px;
+}
 .list{
+  display: flex;
   list-style: none;
-  text-align: center;
-  padding: 0;
-  position:absolute;
-  bottom:30px;
-  left: 0;
-  right: 0;
-  margin: auto;
+  vertical-align: center;
+  margin:0;
+  padding:0;
 }
 .list a{
   text-decoration: none;
   color:white;
   width:100%;
 }
-.list-btn{
-  margin:24px auto 0;
+.item:hover{
+color: #232C33;
+}
+.item{
+  border:none;
+  font-size:32px;
+  background-color: #07A2BF;
+  color:white;
+  margin:12px 4px 0;
+  padding: 0;
+  transition: 0.3s;
+}
+.item-title{
+  font-size: 10px;
+  padding-top:4px;
+  margin:0;
 }
 // ↓ハンバーガーバー（３本ライン）
 .menu-btn span,
@@ -52,21 +68,14 @@
 #menu-btn-check:checked ~ .menu-btn span {
   background-color: rgba(255, 255, 255, 0);
 }
-#menu-btn-check:checked ~ .menu-btn span::before {
-  bottom: 0;
-  transform: rotate(45deg);
-}
-#menu-btn-check:checked ~ .menu-btn span::after {
-  top: 0;
-  transform: rotate(-45deg);
-}
+
 // ↑ハンバーガーバー（３本ライン）
 
 .hamburger-menu{
   position: absolute;
-  top:8px;
+  top:15px;
   left: 20px;
-  margin: 18px;
+  // margin: 18px;
 }
 .hamburger-menu input{
   display: none;

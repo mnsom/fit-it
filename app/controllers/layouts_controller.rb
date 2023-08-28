@@ -1,4 +1,5 @@
 require "open-uri"
+require "nokogiri"
 
 class LayoutsController < ApplicationController
 
@@ -23,6 +24,14 @@ class LayoutsController < ApplicationController
         rotation: rg_item.rotation,
         title: rg_item.item.title
       }
+    end
+    if params[:url]
+      result = ikea_fetch(params[:url])
+      @item = Item.new(result)
+      respond_to do |format|
+        format.html
+        format.text { render partial: "shared/ikea_form", locals: {layout: @layout, item: @item}, formats: [:html] }
+      end
     end
   end
 
@@ -72,5 +81,20 @@ class LayoutsController < ApplicationController
 
   def layout_params
     params.require(:layout).permit(:title, :photo)
+  end
+
+  def ikea_fetch(url)
+    html_file = URI.open(url).read
+    html_doc = Nokogiri::HTML.parse(html_file)
+
+    img_url = html_doc.search(".pip-image").attribute("src").value
+    item_element = html_doc.search(".pip-temp-price-module__information")
+    title = item_element.search(".pip-header-section__title--big").text.strip
+    dimensions = item_element.search(".pip-link-button.pip-header-section__description-measurement").text.strip
+    width, length = dimensions.split("x")
+    width.to_i
+    length.to_i
+    { title: title.split.first, d_width: width, d_length: length, url: url }
+
   end
 end

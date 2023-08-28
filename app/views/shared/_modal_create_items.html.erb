@@ -7,10 +7,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for [layout, item] do |f| %>
-          <%= f.input :title, label:"name" %>
-          <%= f.input :d_length, label:"length" %>
-          <%= f.input :d_width, label:"width" %>
+        <%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
+          <label for="url">URL</label>
+          <input type="text" name="url" id="url" data-action="change->add-item-card#import" placeholder="Please enter URL if it's a IKEA product">
+          <div data-add-item-card-target="inputs">
+            <%= f.input :title, label:"name", data: {add_item_card_target:"name"} %>
+            <%= f.input :d_length, label:"length", data: {add_item_card_target:"length"} %>
+            <%= f.input :d_width, label:"width", data: {add_item_card_target:"width"} %>
+          </div>
           <fieldset class="mb-3 radio_buttons required item_icon">
             <legend class="col-form-label pt-0">type <abbr title="required">*</abbr>
             </legend>
