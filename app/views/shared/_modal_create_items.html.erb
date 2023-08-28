@@ -9,8 +9,8 @@
       <div class="modal-body">
         <%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
           <label for="url">Url</label>
-          <input type="text" name="url" id="url" data-action="input->add-item-card#import">
-          <div data-add-item-card-target="inputs">
+          <input type="text" name="url" id="url" data-action="input->add-item-card#import" class="form-control">
+          <div data-add-item-card-target="inputs" class="text-left">
             <%= f.input :title, label:"name", data: {add_item_card_target:"name"} %>
             <%= f.input :d_length, label:"length", data: {add_item_card_target:"length"} %>
             <%= f.input :d_width, label:"width", data: {add_item_card_target:"width"} %>
