@@ -6,7 +6,7 @@ static values = {
   popup: Boolean
 }
 
-static targets=["popup", "modal"]
+static targets=["popup", "modal", "form", "inputs"]
   connect() {
     console.log("connected")
     if (this.popupValue){
@@ -20,5 +20,20 @@ static targets=["popup", "modal"]
   toggle() {
     console.log("click")
     this.popupTarget.classList.toggle("d-none")
+  }
+
+  import(e) {
+    console.log("import!");
+    const url = e.target.value
+    const path = location.pathname
+    if (url) {
+      const urlFetch = `${path}?url=${e.target.value}`
+      fetch(urlFetch, {headers: {"Accept": "text/plain"}})
+        .then(response => response.text())
+        .then((data) => {
+          console.log(data);
+          this.inputsTarget.innerHTML = data
+        })
+    }
   }
 }
