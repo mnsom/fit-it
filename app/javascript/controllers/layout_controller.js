@@ -1,15 +1,18 @@
 import { fabric } from "fabric";
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
+// import { fit } from "@cloudinary/url-gen/actions/resize";
+
+
 // Connects to data-controller="layout"
 
 export default class extends Controller {
   static values = {imgUrl: String, furnitures: String, scale: Number}
   connect() {
     console.log("hello from layout_controller.js")
-    // console.log(this.element);
     const furnitures = JSON.parse(this.furnituresValue)
+    // console.log(this.element);
     // console.log(furnitures);
-    console.log(this.scaleValue);
+    // console.log(this.scaleValue);
 
     const canvas = new fabric.Canvas('canvas')
     // center and add the image in the canvas
@@ -31,8 +34,7 @@ export default class extends Controller {
         // console.log(img);
         const itemScaleX = element.width / img.width
         const itemScaleY = element.length / img.height
-        console.log(element.width);
-
+        // console.log(element.width);
         var oImg = img.set({
                             // scaleToWidth: element.width*itemScale,
                             // scaleToHeight:  element.length*itemScale,
@@ -41,18 +43,27 @@ export default class extends Controller {
                             left: element.left,
                             top: element.top,
                             angle: element.rotation,
-                            cacheKey: element.id
+                            cacheKey: element.id,
+                            title: element.title
                             });
-        // oImg.set({
-        //   scaleX: scale,
-        //   scaleY: scale
-        // });
-        // console.log(element);
+                            // .resize(fit().width(itemScaleX).height(itemScaleY));
         console.log(oImg);
         canvas.add(oImg);
         oImg.on('modified',() => {
           console.log('on oImg mouseup');
           this.update(oImg)
+        });
+
+        // display item information HTML
+        oImg.on('mouseup',() => {
+          console.log(oImg);
+          const furnitureInfo = document.querySelector("#furniture-info")
+          furnitureInfo.classList.remove("d-none")
+          furnitureInfo.querySelector("img").src = `${element.url}.png`
+          furnitureInfo.querySelector("h3").textContent = `${element.title}`
+          furnitureInfo.querySelector("p").textContent = `(${element.length} x ${element.width})cm`
+          // furnitureInfo.querySelector("img").src = `${oImg.title}`
+
         });
       }, { crossOrigin: "anonymous" });
     });
@@ -64,7 +75,7 @@ export default class extends Controller {
     img.crossOrigin = "anonymous"
     img.src = deleteIcon;
 
-    // Settings for the Grab&Drag customization control
+    // Settings for the Grab&Drag control
     fabric.Object.prototype.transparentCorners = false;
     fabric.Object.prototype.cornerColor = '#232C33';
     fabric.Object.prototype.cornerStyle = 'circle';
@@ -79,8 +90,6 @@ export default class extends Controller {
       cornerSize: 24
     });
 
-    // Add();
-
     function deleteObject(eventData, transform) {
       const target = transform.target;
       console.log(target.cacheKey);
@@ -91,7 +100,7 @@ export default class extends Controller {
       fetch(`/registered_items/${target.cacheKey}`, {
         method: "DELETE",
         headers: { "X-CSRF-Token": csrfToken }
-      })
+      });
     }
 
     function renderIcon(ctx, left, top, styleOverride, fabricObject) {
@@ -102,16 +111,6 @@ export default class extends Controller {
       ctx.drawImage(img, -size/2, -size/2, size, size);
       ctx.restore();
     }
-
-    // canvas.on('mouse:up', (options)=>{
-    //   // console.log('on canvas mousedown', options.target ? options.target.type : '');
-    //   this.update()
-    // });
-    //1 select the element
-    // canvas.on('mouse:dblclick', (options)=>{
-    //   //2 listen to the event
-    //   // console.log('on canvas mouse dblclick', options.target ? options.target.type : '');
-    // });
 
   }
 
