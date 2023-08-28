@@ -21,7 +21,8 @@ class LayoutsController < ApplicationController
         id: rg_item.id,
         left: rg_item.x,
         top: rg_item.y,
-        rotation: rg_item.rotation
+        rotation: rg_item.rotation,
+        title: rg_item.item.title
       }
     end
     if params[:url]
