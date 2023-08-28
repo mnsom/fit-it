@@ -1,0 +1,22 @@
+<div>
+  <%= simple_form_for [layout, item] do |f| %>
+    <%= f.input :title, label:"URL" %>
+    <fieldset class="mb-3 radio_buttons required item_icon">
+      <legend class="col-form-label pt-0">type <abbr title="required">*</abbr>
+      </legend>
+      <div class="category-wrapper">
+        <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
+        <% Icon.all.each do |icon| %>
+          <div class="category-item">
+            <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
+            <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
+              <%= cl_image_tag(icon.photo.key) %>
+              <%= icon.name %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+    <%= f.button :submit, class:"btn btn-primary" %>
+  <% end %>
+</div>
