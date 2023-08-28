@@ -93,6 +93,7 @@ class LayoutsController < ApplicationController
     width, length = dimensions.split("x")
     width.to_i
     length.to_i
-    { title: title, d_width: width, d_length: length, url: url }
+    { title: title.split.first, d_width: width, d_length: length, url: url }
+
   end
 end

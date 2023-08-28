@@ -24,10 +24,13 @@ static targets=["popup", "modal", "form", "inputs"]
 
   import(e) {
     console.log("import!");
-    const url = e.target.value
+    const url = e.target.value.trim()
     const path = location.pathname
-    if (url) {
-      const urlFetch = `${path}?url=${e.target.value}`
+
+
+
+    if (/https:\/\/www\.ikea\.com\/.+/.test(url)) {
+      const urlFetch = `${path}?url=${url}`
       fetch(urlFetch, {headers: {"Accept": "text/plain"}})
         .then(response => response.text())
         .then((data) => {
