@@ -65,7 +65,7 @@ export default class extends Controller {
         });
 
         // display item information HTML
-        oImg.on('mouseup',() => {
+        oImg.on('mousedblclick',() => {
           console.log(oImg);
           const furnitureInfo = document.querySelector("#furniture-info")
           furnitureInfo.classList.remove("d-none")
