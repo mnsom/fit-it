@@ -18,8 +18,8 @@ export default class extends Controller {
     // center and add the image in the canvas
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
-      scaleX:.5,
-      scaleY:.5,
+      scaleX:1,
+      scaleY:1,
       top: center.top,
       left: center.left,
       originX: 'center',
@@ -77,8 +77,20 @@ export default class extends Controller {
 
     // Settings for the Grab&Drag control
     fabric.Object.prototype.transparentCorners = false;
-    fabric.Object.prototype.cornerColor = '#232C33';
+    fabric.Object.prototype.cornerColor = '#07A2BF';
     fabric.Object.prototype.cornerStyle = 'circle';
+    fabric.Object.prototype.borderColor = '#07A2BF';
+    fabric.Object.prototype.setControlsVisibility({
+      mt: false,
+      mb: false,
+      ml: false,
+      mr: false,
+      tl: false,
+      tr: false,
+      br: false,
+      bl: false
+    });
+    // fabric.Object.prototype.hasBorders = false
 
     fabric.Object.prototype.controls.deleteControl = new fabric.Control({
       x: 0.5,
