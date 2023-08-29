@@ -3,12 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="layout"
 
 export default class extends Controller {
-  static values = {imgUrl: String, furnitures: String, scale: Number, index: Number}
+  static values = {imgUrl: String, furnitures: Array, scale: Number, index: Number}
   connect() {
     console.log("hello from layout_controller.js")
-    // console.log(this.element);
-    const furnitures = JSON.parse(this.furnituresValue)
-    // console.log(furnitures);
+    // console.log("lau¥yout controller", this.element);
+    const furnitures = this.furnituresValue
+    console.log(furnitures);
     console.log(this.scaleValue);
 
 
@@ -30,7 +30,7 @@ export default class extends Controller {
     console.log(furnitures);
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.icon_url, (img) => {
-        // console.log(img);
+        console.log(img);
         const itemScaleX = element.width / img.width
         const itemScaleY = element.length / img.height
         console.log(element.width);
@@ -40,10 +40,11 @@ export default class extends Controller {
                             // scaleToHeight:  element.length*itemScale,
                             scaleX: itemScaleX / this.scaleValue,
                             scaleY: itemScaleY / this.scaleValue,
-                            left: element.left,
-                            top: element.top,
+                            left: element.left == 0 ? 300 : element.left,
+                            top: element.top == 0 ? 300 : element.top,
                             angle: element.rotation,
-                            cacheKey: element.id
+                            cacheKey: element.id,
+
                             });
         // oImg.set({
         //   scaleX: scale,
@@ -51,6 +52,7 @@ export default class extends Controller {
         // });
         // console.log(element);
         console.log(oImg);
+        console.log(canvas);
         canvas.add(oImg);
         oImg.on('modified',() => {
           console.log('on oImg mouseup');

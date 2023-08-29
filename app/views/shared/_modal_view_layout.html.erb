@@ -7,7 +7,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="layout-<%= layout.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-controller="download-button">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">preview</h5>
@@ -15,12 +15,13 @@
       </div>
       <div class="modal-body">
         <div class="container" id="edit-canvas"
-          data-controller="layout"
+          data-controller="layout furniture-info"
           data-layout-scale-value= "<%= layout.scale_ratio %>"
           data-layout-img-url-value="<%=cl_image_path(layout.photo.key)%>"
           data-layout-furnitures-value="<%=@layout_items[index].to_json %>"
-          data-layout-index-value="<%= index %>">
-            <canvas data-download-button-target="canvas" id="canvas-<%=index%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF"></canvas>
+          data-layout-index-value="<%= index + 1 %>">
+          <%# raise %>
+            <canvas data-download-button-target="canvas" id="canvas-<%=index + 1%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF"></canvas>
             <%= render 'layouts/furniture_info' %>
         </div>
       </div>

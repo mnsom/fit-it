@@ -6,7 +6,7 @@ class LayoutsController < ApplicationController
   def index
     @layouts = policy_scope(Layout).order(created_at: :desc)
     @layout = Layout.new
-    @layout_items = @layouts.map {|layout| layout_items_hash(layout)}
+    @layout_items = @layouts.map { |layout| layout_items_hash(layout) }
   end
 
   def edit
@@ -105,7 +105,8 @@ class LayoutsController < ApplicationController
       {
         width: rg_item.width,
         length: rg_item.length,
-        url: rg_item.icon_url,
+        icon_url: rg_item.icon_url,
+        detail_url: rg_item.detail_url,
         id: rg_item.id,
         left: rg_item.x,
         top: rg_item.y,
