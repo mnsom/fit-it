@@ -123,8 +123,68 @@ color:#07A2BF;
   .cards {
     grid-template-columns: 1fr 1fr 1fr;
   }
+  .container{
+    max-width:980px;
+  }
 }
-
+@media (min-width: 1400px) {
+  .cards{
+    grid-gap: 18px;
+  }
+  .card-trip{
+    height:360px;
+  }
+  .container{
+    max-width:1100px;
+  }
+  .card-trip > img {
+    height: 240px;
+  }
+}
+@media (min-width: 1600px) {
+  .card-trip{
+    height:380px;
+  }
+  .container{
+    max-width:1240px;
+  }
+  .card-trip > img {
+    height: 260px;
+  }
+}
+@media (min-width: 1700px) {
+  .card-trip{
+    height:400px;
+  }
+  .container{
+    max-width:1400px;
+  }
+  .card-trip > img {
+    height: 280px;
+  }
+}
+  @media (min-width: 1800px) {
+    .card-trip{
+      height:420px;
+    }
+    .container{
+      max-width:1500px;
+    }
+    .card-trip > img {
+      height: 300px;
+    }
+}
+@media (min-width: 1900px) {
+  .card-trip{
+    height:450px;
+  }
+  .container{
+    max-width:1600px;
+  }
+  .card-trip > img {
+    height: 320px;
+  }
+}
 .modal-body {
   display: flex;
 }
