@@ -10,7 +10,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">preview</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Preview and quick edit</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -21,8 +21,8 @@
           data-layout-furnitures-value="<%=@layout_items[index].to_json %>"
           data-layout-index-value="<%= index + 1 %>">
           <%# raise %>
-            <canvas data-download-button-target="canvas" id="canvas-<%=index + 1%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF"></canvas>
-            <%= render 'layouts/furniture_info' %>
+          <canvas data-download-button-target="canvas" id="canvas-<%=index + 1%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF"></canvas>
+          <%= render 'layouts/furniture_info' %>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
