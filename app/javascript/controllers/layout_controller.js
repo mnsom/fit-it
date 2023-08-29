@@ -25,8 +25,13 @@ export default class extends Controller {
       crossOrigin: "anonymous"
     });
 
-
+    // TEMPORARY CODE
+    canvas.on('mouse:down', ()=>{
+      console.log("hello hello");
+    const furnitureInfo = document.querySelector("#furniture-info")
+    furnitureInfo.classList.add("d-none")    });
     //insert a furniture Icon into the Layout
+    // TEMPORARY CODE
     console.log(furnitures);
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.icon_url, (img) => {
