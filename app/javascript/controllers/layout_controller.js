@@ -16,8 +16,8 @@ export default class extends Controller {
     // center and add the image in the canvas
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
-      scaleX:.5,
-      scaleY:.5,
+      scaleX: 1.2,
+      scaleY: 1.2,
       top: center.top,
       left: center.left,
       originX: 'center',
@@ -27,8 +27,9 @@ export default class extends Controller {
 
 
     //insert a furniture Icon into the Layout
+    console.log(furnitures);
     furnitures.forEach(element => {
-      fabric.Image.fromURL(element.url+".png", (img) => {
+      fabric.Image.fromURL(element.icon_url, (img) => {
         // console.log(img);
         const itemScaleX = element.width / img.width
         const itemScaleY = element.length / img.height
@@ -55,6 +56,18 @@ export default class extends Controller {
           console.log('on oImg mouseup');
           this.update(oImg)
         });
+
+        // display item information HTML
+        oImg.on('mouseup',() => {
+          console.log(oImg);
+          const furnitureInfo = document.querySelector("#furniture-info")
+          furnitureInfo.classList.remove("d-none")
+          furnitureInfo.querySelector("img").src = `${element.detail_url}`
+          furnitureInfo.querySelector("h3").textContent = `${element.title}`
+          furnitureInfo.querySelector("p").textContent = `(${element.length} x ${element.width})cm`
+          // furnitureInfo.querySelector("img").src = `${oImg.title}`
+
+        });
       }, { crossOrigin: "anonymous" });
     });
 
@@ -67,8 +80,20 @@ export default class extends Controller {
 
     // Settings for the Grab&Drag customization control
     fabric.Object.prototype.transparentCorners = false;
-    fabric.Object.prototype.cornerColor = '#232C33';
+    fabric.Object.prototype.cornerColor = '#07A2BF';
     fabric.Object.prototype.cornerStyle = 'circle';
+    fabric.Object.prototype.borderColor = '#07A2BF';
+    fabric.Object.prototype.setControlsVisibility({
+      mt: false,
+      mb: false,
+      ml: false,
+      mr: false,
+      tl: false,
+      tr: false,
+      br: false,
+      bl: false
+    });
+    // fabric.Object.prototype.hasBorders = false
 
     fabric.Object.prototype.controls.deleteControl = new fabric.Control({
       x: 0.5,

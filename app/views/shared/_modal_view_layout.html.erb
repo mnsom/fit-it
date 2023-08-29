@@ -20,7 +20,7 @@
           data-layout-img-url-value="<%=cl_image_path(layout.photo.key)%>"
           data-layout-furnitures-value="<%=@layout_items[index].to_json %>"
           data-layout-index-value="<%= index %>">
-            <canvas data-download-button-target="canvas" id="canvas-<%=index%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF;"></canvas>
+            <canvas data-download-button-target="canvas" id="canvas-<%=index%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF"></canvas>
             <%= render 'layouts/furniture_info' %>
         </div>
       </div>
