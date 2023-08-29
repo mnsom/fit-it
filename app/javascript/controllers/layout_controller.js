@@ -18,8 +18,8 @@ export default class extends Controller {
     // center and add the image in the canvas
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
-      scaleX:.5,
-      scaleY:.5,
+      scaleX: 1.2,
+      scaleY: 1.2,
       top: center.top,
       left: center.left,
       originX: 'center',
