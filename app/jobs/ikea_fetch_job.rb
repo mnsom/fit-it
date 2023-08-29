@@ -15,6 +15,6 @@ class IkeaFetchJob < ApplicationJob
     width, length = dimensions.split("x")
     width.to_i
     length.to_i
-    { title: title, d_width: width, d_length: length, url: url }
+    { title: title, d_width: width, d_length: length, url: img_url }
   end
 end
