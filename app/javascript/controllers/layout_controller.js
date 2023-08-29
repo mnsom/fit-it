@@ -14,8 +14,8 @@ export default class extends Controller {
     // console.log(furnitures);
     // console.log(this.scaleValue);
 
-    const canvas = new fabric.Canvas('canvas')
     // center and add the image in the canvas
+    const canvas = new fabric.Canvas('canvas')
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
       scaleX: 1.2,
@@ -26,6 +26,71 @@ export default class extends Controller {
       originY: 'center',
       crossOrigin: "anonymous"
     });
+
+
+
+    //draw a straight line for ruler
+    var drawLineMode = false;
+    var startPoint = null;
+    var endPoint = null;
+
+    // Event listener for the draw line mode button
+    var drawLineModeButton = document.getElementById('drawLineModeButton');
+    drawLineModeButton.addEventListener('click', function() {
+        drawLineMode = !drawLineMode; // Toggle the draw line mode
+
+        if (drawLineMode) {
+            canvas.selection = false; // Disable object selection while in draw line mode
+            drawLineModeButton.querySelector('p').textContent = 'Exit';
+        } else {
+            canvas.selection = true; // Enable object selection when exiting draw line mode
+            drawLineModeButton.querySelector('p').textContent = 'Ruler';
+        }
+    });
+
+    // Function to scale the background image
+    function scaleBackgroundImage(scaleFactor) {
+      var backgroundImage = canvas.backgroundImage;
+
+      if (backgroundImage) {
+          backgroundImage.scaleX = scaleFactor;
+          backgroundImage.scaleY = scaleFactor;
+
+          canvas.renderAll();
+      }
+    };
+
+
+    // Function to draw a line between the start and end points
+    function drawLine() {
+      var line = new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
+          stroke: '#07A2BF',
+          strokeWidth: 4,
+      });
+
+      canvas.add(line);
+      canvas.renderAll();
+    };
+
+    // Event listener for mouse down on the canvas
+    canvas.on('mouse:down', function(event) {
+      if (drawLineMode) {
+          if (!startPoint) {
+              startPoint = canvas.getPointer(event.e);
+          } else if (!endPoint) {
+              endPoint = canvas.getPointer(event.e);
+              drawLine();
+               // Prompt for scale input after drawing the line
+              scaleInput = prompt("Enter a scaling factor (only numbers):");
+              if (scaleInput !== null && !isNaN(scaleInput)) {
+                  scaleBackgroundImage(parseFloat(scaleInput));
+              }
+              startPoint = null;
+              endPoint = null;
+          }
+      }
+    });
+
 
 
     //insert a furniture Icon into the Layout

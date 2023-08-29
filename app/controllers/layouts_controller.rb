@@ -30,7 +30,7 @@ class LayoutsController < ApplicationController
       @item = Item.new(result)
       respond_to do |format|
         format.html
-        format.text { render partial: "shared/ikea_form", locals: {layout: @layout, item: @item}, formats: [:html] }
+        format.text { render partial: "shared/ikea_form", locals: { layout: @layout, item: @item }, formats: [:html] }
       end
     end
   end
@@ -94,7 +94,6 @@ class LayoutsController < ApplicationController
     width, length = dimensions.split("x")
     width.to_i
     length.to_i
-    { title: title.split.first, d_width: width, d_length: length, url: url }
-
+    { title: title.split.first, d_width: width, d_length: length, url: url };
   end
 end
