@@ -51,6 +51,7 @@ class LayoutsController < ApplicationController
   def create
     @layouts = Layout.where(user: current_user)
     @layout = Layout.new(layout_params)
+    @layout.scale_ratio = 1
     @layout.user = current_user
     authorize @layout
     if @layout.save
