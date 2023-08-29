@@ -1,6 +1,6 @@
 .category-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -64,4 +64,22 @@
 #snippet_category_css:checked + label {
   background-color: #62DDF5;
   border-color: #62DDF5;
+}
+.modal-body input{
+ background-color: white;
+}
+.modal-body .btn{
+  background-color: #07A2BF;
+  color:#fff;
+}
+
+.modal-body .btn:hover{
+  background-color: #fff;
+  color:#07A2BF;
+}
+.modal-body .url{
+  display: block;
+}
+.modal-body #url{
+  margin-bottom: 16px;
 }
