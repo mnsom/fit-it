@@ -38,12 +38,11 @@ export default class extends Controller {
     var drawLineModeButton = document.getElementById('drawLineModeButton');
     drawLineModeButton.addEventListener('click', function() {
         drawLineMode = !drawLineMode; // Toggle the draw line mode
-
         if (drawLineMode) {
-            canvas.selection = false; // Disable object selection while in draw line mode
+            canvas.selection = false; // Disable icon selection while in ruler mode
             drawLineModeButton.querySelector('p').textContent = 'Exit';
         } else {
-            canvas.selection = true; // Enable object selection when exiting draw line mode
+            canvas.selection = true; // Enable icon selection when exiting ruler mode
             drawLineModeButton.querySelector('p').textContent = 'Ruler';
         }
     });
@@ -51,7 +50,6 @@ export default class extends Controller {
     // Function to scale the background image
     function scaleBackgroundImage(scaleFactor) {
       var backgroundImage = canvas.backgroundImage;
-
       if (backgroundImage) {
           backgroundImage.scaleX = scaleFactor;
           backgroundImage.scaleY = scaleFactor;
@@ -59,6 +57,7 @@ export default class extends Controller {
           canvas.renderAll();
       }
     };
+
 
 
     // Function to draw a line between the start and end points
@@ -72,6 +71,7 @@ export default class extends Controller {
       canvas.renderAll();
     };
 
+    // anything between the starpoint and enpoint is pixels, and there is the scale
     // Event listener for mouse down on the canvas
     canvas.on('mouse:down', function(event) {
       if (drawLineMode) {
@@ -80,16 +80,50 @@ export default class extends Controller {
           } else if (!endPoint) {
               endPoint = canvas.getPointer(event.e);
               drawLine();
-               // Prompt for scale input after drawing the line
-              scaleInput = prompt("Enter a scaling factor (only numbers):");
+              // Create a line prompt for user to insert a number
+              var scaleInput = prompt("How long is this wall? (cm)");
               if (scaleInput !== null && !isNaN(scaleInput)) {
-                  scaleBackgroundImage(parseFloat(scaleInput));
-              }
-              startPoint = null;
-              endPoint = null;
-          }
-      }
+                  var scaleFactor = parseFloat(scaleInput);
+                  scaleBackgroundImage(scaleFactor);
+              };
+            startPoint = null;
+            endPoint = null;
+          };
+          canvas.on('modified', () => {
+          this.update(canvas)
+        });
+      };
     });
+
+    // Save background scaled image
+    function updateBackgroundImage(url, scaleX, scaleY) {
+      // 2. Set the new background image
+      canvas.backgroundImage = null;    // 1. Clear the existing background image
+      const center = canvas.getCenter();  // 2. Set the new background image
+      canvas.setBackgroundImage(url, canvas.renderAll.bind(canvas), {
+        scaleX: scaleX,
+        scaleY: scaleY,
+        top: center.top,
+        left: center.left,
+        originX: 'center',
+        originY: 'center',
+        crossOrigin: "anonymous"
+      });
+
+      // Retrieve the target object (if needed) and perform the fetch
+      const csrfToken = document.querySelector("[name='csrf-token']").content;
+      fetch(`/registered_items/${target.cacheKey}`, {
+        method: "PATCH",
+        headers: { "X-CSRF-Token": csrfToken, "Accept": "text/plain" },
+        body: form
+      })
+      .then(response => response.text())
+      .then((data) => {
+        // console.log(data)
+      });
+    }
+
+
 
 
 
@@ -155,7 +189,6 @@ export default class extends Controller {
       br: false,
       bl: false
     });
-    // fabric.Object.prototype.hasBorders = false
 
     fabric.Object.prototype.controls.deleteControl = new fabric.Control({
       x: 0.5,
@@ -188,7 +221,6 @@ export default class extends Controller {
       ctx.drawImage(img, -size/2, -size/2, size, size);
       ctx.restore();
     }
-
   }
 
   // Save the current location of all icons inside the canvas
@@ -198,8 +230,8 @@ export default class extends Controller {
     console.log(oImg);
     const form = new FormData()
 
+    // console.log("registered_item[rotation]", oImg.angle);
     form.append("registered_item[rotation]", oImg.angle);
-    console.log("registered_item[rotation]", oImg.angle);
     form.append("registered_item[x]", oImg.aCoords.tl.x);
     form.append("registered_item[y]", oImg.aCoords.tl.y);
 

@@ -35,16 +35,15 @@ class LayoutsController < ApplicationController
     end
   end
 
-  # def update
-  #   @layout = Layout.find(params[:id])
-  #   @layout.update(layout_params)
-
-  #   respond_to do |format|
-  #     format.html { redirect_to movies_path }
-  #     format.text { render partial: :index, locals: {movie: @movie}, formats: [:html] }
-  #   end
-
-  # end
+  def update
+    @layout = Layout.find(params[:id])
+    authorize @layout
+    if @layout.update(layout_params)
+      render json:, status: :ok
+    else
+      render json: @layout.errors.messages, status: :unprocessable_entity
+    end
+  end
 
   def create
     @layouts = Layout.where(user: current_user)
