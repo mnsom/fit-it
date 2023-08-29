@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
         <%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
-          <label for="url">URL</label>
+          <label for="url" class="url">URL</label>
           <input type="text" name="url" id="url" data-action="change->add-item-card#import" placeholder="Please enter URL if it's a IKEA product">
           <div data-add-item-card-target="inputs">
             <%= f.input :title, label:"name", data: {add_item_card_target:"name"} %>
