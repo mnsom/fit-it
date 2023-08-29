@@ -17,7 +17,8 @@ class LayoutsController < ApplicationController
       {
         width: rg_item.width,
         length: rg_item.length,
-        url: rg_item.icon_url,
+        icon_url: rg_item.icon_url,
+        detail_url: rg_item.detail_url,
         id: rg_item.id,
         left: rg_item.x,
         top: rg_item.y,
@@ -30,7 +31,7 @@ class LayoutsController < ApplicationController
       @item = Item.new(result)
       respond_to do |format|
         format.html
-        format.text { render partial: "shared/ikea_form", locals: {layout: @layout, item: @item}, formats: [:html] }
+        format.text { render partial: "shared/ikea_form", locals: { layout: @layout, item: @item }, formats: [:html] }
       end
     end
   end

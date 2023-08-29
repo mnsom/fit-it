@@ -29,8 +29,9 @@ export default class extends Controller {
 
 
     //insert a furniture Icon into the Layout
+    console.log(furnitures);
     furnitures.forEach(element => {
-      fabric.Image.fromURL(element.url+".png", (img) => {
+      fabric.Image.fromURL(element.icon_url, (img) => {
         // console.log(img);
         const itemScaleX = element.width / img.width
         const itemScaleY = element.length / img.height
@@ -59,7 +60,7 @@ export default class extends Controller {
           console.log(oImg);
           const furnitureInfo = document.querySelector("#furniture-info")
           furnitureInfo.classList.remove("d-none")
-          furnitureInfo.querySelector("img").src = `${element.url}.png`
+          furnitureInfo.querySelector("img").src = `${element.detail_url}`
           furnitureInfo.querySelector("h3").textContent = `${element.title}`
           furnitureInfo.querySelector("p").textContent = `(${element.length} x ${element.width})cm`
           // furnitureInfo.querySelector("img").src = `${oImg.title}`
