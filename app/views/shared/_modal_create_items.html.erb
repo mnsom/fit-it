@@ -9,14 +9,14 @@
       <div class="modal-body">
         <%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
           <label for="url" class="url">URL</label>
-          <input type="text" name="url" id="url" data-action="change->add-item-card#import" placeholder="Please enter URL if it's a IKEA product">
+          <input type="text" name="url" id="url" data-action="change->add-item-card#import" placeholder="Please enter URL if it's an IKEA product">
           <div data-add-item-card-target="inputs">
-            <%= f.input :title, label:"name", data: {add_item_card_target:"name"} %>
-            <%= f.input :d_length, label:"length", data: {add_item_card_target:"length"} %>
-            <%= f.input :d_width, label:"width", data: {add_item_card_target:"width"} %>
+            <%= f.input :title, label:"Name", error: "Name can't be blank",data: {add_item_card_target:"name"} %>
+            <%= f.input :d_length, label:"Length (cm)",error: "Length can't be blank", data: {add_item_card_target:"length"} %>
+            <%= f.input :d_width, label:"Width (cm)",error: "Width can't be blank", data: {add_item_card_target:"width"} %>
           </div>
           <fieldset class="mb-3 radio_buttons required item_icon">
-            <legend class="col-form-label pt-0">type <abbr title="required">*</abbr>
+            <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
             </legend>
             <div class="category-wrapper">
               <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
