@@ -6,6 +6,7 @@ class LayoutsController < ApplicationController
   def index
     @layouts = policy_scope(Layout).order(created_at: :desc)
     @layout = Layout.new
+    @layout_items = @layouts.map { |layout| layout_items_hash(layout) }
   end
 
   def edit
@@ -96,6 +97,23 @@ class LayoutsController < ApplicationController
     width.to_i
     length.to_i
     { title: title.split.first, d_width: width, d_length: length, url: url }
+  rescue
+    {}
+  end
 
+  def layout_items_hash(layout)
+    layout.registered_items.map do |rg_item|
+      {
+        width: rg_item.width,
+        length: rg_item.length,
+        icon_url: rg_item.icon_url,
+        detail_url: rg_item.detail_url,
+        id: rg_item.id,
+        left: rg_item.x,
+        top: rg_item.y,
+        rotation: rg_item.rotation,
+        title: rg_item.item.title
+      }
+    end
   end
 end
