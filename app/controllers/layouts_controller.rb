@@ -96,6 +96,7 @@ class LayoutsController < ApplicationController
     width.to_i
     length.to_i
     { title: title.split.first, d_width: width, d_length: length, url: url }
-
+  rescue
+    {}
   end
 end
