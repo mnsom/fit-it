@@ -18,7 +18,7 @@
             <%= f.input :title, class: "title"%>
             <%= image_tag "upload.jpg", width: 300, class: "hidden", data: { photo_preview_target: "preview" } %>
             <%= f.input :photo, as: :file, input_html: { class: 'd-none', data: { photo_preview_target: "input", action:"change->photo-preview#displayPreview" }}, label_html: { class: 'upload-photo'}, label: '🏠 Upload a layout' %>
-            <%= f.button :submit, class:"btn btn-primary" %>
+            <%= f.submit 'Create floor plan' ,class:"btn btn-primary" %>
           <% end %>
         </div>
       </div>

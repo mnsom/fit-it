@@ -55,7 +55,7 @@ class LayoutsController < ApplicationController
     @layout.user = current_user
     authorize @layout
     if @layout.save
-      redirect_to layouts_path(@layouts)
+      redirect_to edit_layout_path(@layout)
     else
       render :index, status: :unprocessable_entity
     end
