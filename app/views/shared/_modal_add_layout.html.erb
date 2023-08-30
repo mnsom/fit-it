@@ -14,11 +14,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <%= simple_form_for @layout, html: { data: { controller: "photo-preview" } } do |f| %>
-            <%= f.input :title, class: "title"%>
-            <%= image_tag "upload.jpg", width: 300, class: "hidden", data: { photo_preview_target: "preview" } %>
-            <%= f.input :photo, as: :file, input_html: { class: 'd-none', data: { photo_preview_target: "input", action:"change->photo-preview#displayPreview" }}, label_html: { class: 'upload-photo'}, label: '🏠 Upload a layout' %>
-            <%= f.button :submit, class:"btn btn-primary" %>
+          <%= simple_form_for @layout, html: { data: { controller: "photo-preview", action:"submit->photo-preview#validate" } } do |f| %>
+            <%= f.input :title, class: "title", input_html: {data: {photo_preview_target: "name"}} %>
+            <%= image_tag "C&D image.png", width: 300, class: "hidden upload-placeholder", data: { photo_preview_target: "preview", action:"click->photo-preview#uploadPhoto dragover->photo-preview#dragover dragleave->photo-preview#dragleave drop->photo-preview#drop" } %>
+            <%= f.input :photo, as: :file, input_html: { class: 'd-none', data: { photo_preview_target: "input", action:"change->photo-preview#displayPreview" }}, label: false, aria_label: "Upload Image" %>
+            <%= f.submit 'Create Layout' ,class:"btn btn-primary" %>
           <% end %>
         </div>
       </div>

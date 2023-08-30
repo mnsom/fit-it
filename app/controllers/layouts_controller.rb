@@ -6,6 +6,7 @@ class LayoutsController < ApplicationController
   def index
     @layouts = policy_scope(Layout).order(created_at: :desc)
     @layout = Layout.new
+    @layout_items = @layouts.map { |layout| layout_items_hash(layout) }
   end
 
   def edit
@@ -17,7 +18,8 @@ class LayoutsController < ApplicationController
       {
         width: rg_item.width,
         length: rg_item.length,
-        url: rg_item.icon_url,
+        icon_url: rg_item.icon_url,
+        detail_url: rg_item.detail_url,
         id: rg_item.id,
         left: rg_item.x,
         top: rg_item.y,
@@ -48,10 +50,11 @@ class LayoutsController < ApplicationController
   def create
     @layouts = Layout.where(user: current_user)
     @layout = Layout.new(layout_params)
+    @layout.scale_ratio = 1
     @layout.user = current_user
     authorize @layout
     if @layout.save
-      redirect_to layouts_path(@layouts)
+      redirect_to edit_layout_path(@layout)
     else
       render :index, status: :unprocessable_entity
     end
@@ -89,10 +92,32 @@ class LayoutsController < ApplicationController
     img_url = html_doc.search(".pip-image").attribute("src").value
     item_element = html_doc.search(".pip-temp-price-module__information")
     title = item_element.search(".pip-header-section__title--big").text.strip
+    category = item_element.search(".pip-header-section__description-text").text.strip.downcase
+    icons = Icon.all
+    type = icons.find { |icon| category.include?(icon.name.downcase) }
     dimensions = item_element.search(".pip-link-button.pip-header-section__description-measurement").text.strip
     width, length = dimensions.split("x")
     width.to_i
     length.to_i
-    { title: title.split.first, d_width: width, d_length: length, url: url };
+
+    { title: title.split.first, d_width: width, d_length: length, url: url, icon: type }
+  rescue
+    {}
+  end
+
+  def layout_items_hash(layout)
+    layout.registered_items.map do |rg_item|
+      {
+        width: rg_item.width,
+        length: rg_item.length,
+        icon_url: rg_item.icon_url,
+        detail_url: rg_item.detail_url,
+        id: rg_item.id,
+        left: rg_item.x,
+        top: rg_item.y,
+        rotation: rg_item.rotation,
+        title: rg_item.item.title
+      }
+    end
   end
 end

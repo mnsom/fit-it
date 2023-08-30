@@ -8,29 +8,28 @@
       </div>
       <div class="modal-body">
         <%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
-          <label for="url" class="url">URL</label>
-          <input type="text" name="url" id="url" data-action="change->add-item-card#import" placeholder="Please enter URL if it's a IKEA product">
+          <%= f.input :url, placeholder:"Please enter URL if it's an IKEA product", input_html: { data: { action: "change->add-item-card#import" } } %>
           <div data-add-item-card-target="inputs">
-            <%= f.input :title, label:"name", data: {add_item_card_target:"name"} %>
-            <%= f.input :d_length, label:"length", data: {add_item_card_target:"length"} %>
-            <%= f.input :d_width, label:"width", data: {add_item_card_target:"width"} %>
+            <%= f.input :title, label:"Name", error: "Name can't be blank",data: {add_item_card_target:"name"} %>
+            <%= f.input :d_length, label:"Length (cm)",error: "Length can't be blank", data: {add_item_card_target:"length"} %>
+            <%= f.input :d_width, label:"Width (cm)",error: "Width can't be blank", data: {add_item_card_target:"width"} %>
+            <fieldset class="mb-3 radio_buttons required item_icon">
+              <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
+              </legend>
+              <div class="category-wrapper">
+                <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
+                <% Icon.all.each do |icon| %>
+                  <div class="category-item">
+                    <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
+                    <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
+                      <%= cl_image_tag(icon.photo.key) %>
+                      <%= icon.name %>
+                    </label>
+                  </div>
+                <% end %>
+              </div>
+            </fieldset>
           </div>
-          <fieldset class="mb-3 radio_buttons required item_icon">
-            <legend class="col-form-label pt-0">type <abbr title="required">*</abbr>
-            </legend>
-            <div class="category-wrapper">
-              <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
-              <% Icon.all.each do |icon| %>
-                <div class="category-item">
-                  <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
-                  <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
-                    <%= cl_image_tag(icon.photo.key) %>
-                    <%= icon.name %>
-                  </label>
-                </div>
-              <% end %>
-            </div>
-          </fieldset>
           <%= f.button :submit, class:"btn btn-primary" %>
         <% end %>
       </div>

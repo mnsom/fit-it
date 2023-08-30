@@ -7,21 +7,23 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="layout-<%= layout.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-controller="download-button">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">preview</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Preview and quick edit</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <% if layout.photo.attached?  %>
-          <img src="<%= cl_image_path(layout.photo.key)%>">
-        <% end %>
-        <canvas id="canvas" width="150" height="150" data-download-button-target="canvas"></canvas>
-        <script type="application/javascript">
-          document.getElementById("canvas").getContext("2d").fillStyle = "rgb(200, 0, 0)";
-          document.getElementById("canvas").getContext("2d").fillRect(10, 10, 50, 50);
-        </script>
+        <div class="container" id="edit-canvas"
+          data-controller="layout furniture-info"
+          data-layout-scale-value= "<%= layout.scale_ratio %>"
+          data-layout-img-url-value="<%=cl_image_path(layout.photo.key)%>"
+          data-layout-furnitures-value="<%=@layout_items[index].to_json %>"
+          data-layout-index-value="<%= index + 1 %>">
+          <%# raise %>
+            <canvas data-download-button-target="canvas" id="canvas-<%=index + 1%>" width="700" height="700" style="background-color: none; border: 1px solid #07A2BF"></canvas>
+            <%= render 'layouts/furniture_info' %>
+        </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div>
@@ -30,6 +32,7 @@
         <div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" data-action="click->download-button#download" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
+          <%# <button type="button" data-action="modal" class="btn btn-secondary" data-action="click->download-button#delete">Close</button> %>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export default class extends Controller {
     const imgData = this.canvasTarget.toDataURL("image/jpeg", 1.0);
     const pdf = new jsPDF();
 
-    pdf.addImage(imgData, 'JPEG', 0, 0);
+    pdf.addImage(imgData, 'JPEG', 30, 73.5, 150, 150);
     pdf.save("download.pdf");
   }
 }

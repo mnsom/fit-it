@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     layouts_path
   end
+
+  def default_url_options
+    { host: ENV["fit-it.homes"] || "localhost:3000" }
+  end
 end

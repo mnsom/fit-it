@@ -28,7 +28,6 @@ static targets=["popup", "modal", "form", "inputs"]
     const path = location.pathname
 
 
-
     if (/https:\/\/www\.ikea\.com\/.+/.test(url)) {
       const urlFetch = `${path}?url=${url}`
       fetch(urlFetch, {headers: {"Accept": "text/plain"}})

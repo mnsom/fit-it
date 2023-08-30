@@ -5,7 +5,9 @@
   </div>
   <br>
   <div class="container text-center">
-    <% unless user_signed_in? %>
+    <% if user_signed_in? %>
+      <%= link_to 'Click here to start creating your layout!', layouts_path, class:"btn btn-primary text-light p-3 fs-5" %>
+    <% else %>
       <div class="col align-self-center mb-2">
         <%= link_to new_user_session_path do %>
           <button type="button" class="btn btn-primary" style="--round-corners: 15px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.5rem;"> Login</button>

@@ -4,6 +4,17 @@
   padding: 60px 0;
 }
 
+.landing {
+  height: 250px;
+  padding: 20px 0;
+}
+
+.landing-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .banner h1 {
   margin: 0;
   color: white;
@@ -23,10 +34,16 @@
 }
 
 .logo img {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
 }
 
 .slogan {
   padding: 30px;
+
+}
+
+.landing-info {
+  // display: flex;
+  // align-items: center
 }
