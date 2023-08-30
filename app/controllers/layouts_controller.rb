@@ -37,16 +37,15 @@ class LayoutsController < ApplicationController
     end
   end
 
-  # def update
-  #   @layout = Layout.find(params[:id])
-  #   @layout.update(layout_params)
-
-  #   respond_to do |format|
-  #     format.html { redirect_to movies_path }
-  #     format.text { render partial: :index, locals: {movie: @movie}, formats: [:html] }
-  #   end
-
-  # end
+  def update
+    @layout = Layout.find(params[:id])
+    authorize @layout
+    if @layout.update(layout_params)
+      render json: { status: :ok }
+    else
+      render json: @layout.errors.messages, status: :unprocessable_entity
+    end
+  end
 
   def create
     @layouts = Layout.where(user: current_user)
@@ -83,7 +82,7 @@ class LayoutsController < ApplicationController
   private
 
   def layout_params
-    params.require(:layout).permit(:title, :photo)
+    params.require(:layout).permit(:title, :photo, :scale_ratio)
   end
 
   def ikea_fetch(url)
@@ -100,6 +99,7 @@ class LayoutsController < ApplicationController
     width, length = dimensions.split("x")
     width.to_i
     length.to_i
+
     { title: title.split.first, d_width: width, d_length: length, url: url, icon: type }
   rescue
     {}
