@@ -37,16 +37,15 @@ class LayoutsController < ApplicationController
     end
   end
 
-  # def update
-  #   @layout = Layout.find(params[:id])
-  #   @layout.update(layout_params)
-
-  #   respond_to do |format|
-  #     format.html { redirect_to movies_path }
-  #     format.text { render partial: :index, locals: {movie: @movie}, formats: [:html] }
-  #   end
-
-  # end
+  def update
+    @layout = Layout.find(params[:id])
+    authorize @layout
+    if @layout.update(layout_params)
+      render json: { status: :ok }
+    else
+      render json: @layout.errors.messages, status: :unprocessable_entity
+    end
+  end
 
   def create
     @layouts = Layout.where(user: current_user)
@@ -83,7 +82,7 @@ class LayoutsController < ApplicationController
   private
 
   def layout_params
-    params.require(:layout).permit(:title, :photo)
+    params.require(:layout).permit(:title, :photo, :scale_ratio)
   end
 
   def ikea_fetch(url)
@@ -93,11 +92,15 @@ class LayoutsController < ApplicationController
     img_url = html_doc.search(".pip-image").attribute("src").value
     item_element = html_doc.search(".pip-temp-price-module__information")
     title = item_element.search(".pip-header-section__title--big").text.strip
+    category = item_element.search(".pip-header-section__description-text").text.strip.downcase
+    icons = Icon.all
+    type = icons.find { |icon| category.include?(icon.name.downcase) }
     dimensions = item_element.search(".pip-link-button.pip-header-section__description-measurement").text.strip
     width, length = dimensions.split("x")
     width.to_i
     length.to_i
-    { title: title.split.first, d_width: width, d_length: length, url: url }
+
+    { title: title.split.first, d_width: width, d_length: length, url: url, icon: type }
   rescue
     {}
   end

@@ -13,3 +13,19 @@
   </label>
   <input class="form-control numeric integer required" type="number" step="1" name="item[d_width]" id="item_d_width" value="<%= @item.d_width %>">
 </div>
+<fieldset class="mb-3 radio_buttons required item_icon">
+  <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
+  </legend>
+  <div class="category-wrapper">
+    <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
+    <% Icon.all.each do |icon| %>
+      <div class="category-item">
+        <input class="form-check-input radio_buttons required category-selector" type="radio" <%= "checked" if icon == @item.icon %> value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
+        <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
+          <%= cl_image_tag(icon.photo.key) %>
+          <%= icon.name %>
+        </label>
+      </div>
+    <% end %>
+  </div>
+</fieldset>

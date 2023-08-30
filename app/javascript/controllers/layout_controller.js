@@ -3,7 +3,8 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="layout"
 
 export default class extends Controller {
-  static values = {imgUrl: String, furnitures: Array, scale: Number, index: Number}
+
+  static values = {imgUrl: String, furnitures: Array, scale: Number, index: Number, id: Number}
   connect() {
     console.log("hello from layout_controller.js")
     // console.log("lau¥yout controller", this.element);
@@ -12,18 +13,115 @@ export default class extends Controller {
     console.log(this.scaleValue);
 
 
+
+    // FLOORPLAN IMG TO CANVAS
+
     const canvas = new fabric.Canvas(this.indexValue ? `canvas-${this.indexValue}` : "canvas");
+
     // center and add the image in the canvas
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
-      scaleX: 1.4,
-      scaleY: 1.4,
+
+      scaleX: this.scaleValue,
+      scaleY: this.scaleValue,
       top: center.top,
       left: center.left,
       originX: 'center',
       originY: 'center',
       crossOrigin: "anonymous"
     });
+
+
+    // SCALER FUNCTION
+    //draw a straight line for ruler
+    var drawLineMode = false;
+    var startPoint = null;
+    var endPoint = null;
+
+    // Event listener for the draw line mode button
+    var drawLineModeButton = document.getElementById('drawLineModeButton');
+    drawLineModeButton.addEventListener('click', function() {
+        drawLineMode = !drawLineMode; // Toggle the draw line mode
+        if (drawLineMode) {
+            canvas.selection = false; // Disable icon selection while in ruler mode
+            drawLineModeButton.querySelector('p').textContent = 'Exit';
+        } else {
+            canvas.selection = true; // Enable icon selection when exiting ruler mode
+            drawLineModeButton.querySelector('p').textContent = 'Ruler';
+        }
+    });
+
+    // Function to scale the background image
+    function scaleBackgroundImage(scaleFactor, id) {
+      var backgroundImage = canvas.backgroundImage;
+      if (backgroundImage) {
+          backgroundImage.scaleX = scaleFactor;
+          backgroundImage.scaleY = scaleFactor;
+
+          canvas.renderAll();
+          updateBackgroundImage(scaleFactor, id);
+      }
+    };
+
+    // Function to draw a line between the start and end points
+    function drawLine() {
+      var line = new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
+          stroke: '#07A2BF',
+          strokeWidth: 4,
+      });
+
+      canvas.add(line);
+      canvas.renderAll();
+    };
+
+    // anything between the starpoint and enpoint is pixels, and there is the scale
+    // Event listener for mouse down on the canvas
+    const id = this.idValue
+    canvas.on('mouse:down', function(event) {
+      if (drawLineMode) {
+          if (!startPoint) {
+              startPoint = canvas.getPointer(event.e);
+          } else if (!endPoint) {
+              endPoint = canvas.getPointer(event.e);
+              drawLine();
+              // Create a line prompt for user to insert a number
+              var scaleInput = prompt("How long is this wall? (cm)");
+              if (scaleInput !== null && !isNaN(scaleInput)) {
+                  var scaleFactor = parseFloat(scaleInput);
+                  scaleBackgroundImage(scaleFactor, id);
+              };
+            startPoint = null;
+            endPoint = null;
+          };
+          canvas.on('modified', () => {
+          this.update(canvas)
+        });
+      };
+    });
+
+    // Save background scaled image
+    function updateBackgroundImage(scaleFactor, id) {
+      // 2. change just the scale
+      const form = new FormData()
+      form.append("layout[scale_ratio]", scaleFactor)
+
+      // fetch to save
+      const csrfToken = document.querySelector("[name='csrf-token']").content;
+      fetch(`/layouts/${id}`, {
+        method: "PATCH",
+        headers: { "X-CSRF-Token": csrfToken, "Accept": "text/plain" },
+        body: form
+      })
+      .then(response => response.text())
+      .then((data) => {
+        console.log(data)
+      });
+    }
+
+
+
+
+    // INSERT FURNITURE ICON
 
     // TEMPORARY CODE
     canvas.on('mouse:down', ()=>{
@@ -100,7 +198,6 @@ export default class extends Controller {
       br: false,
       bl: false
     });
-    // fabric.Object.prototype.hasBorders = false
 
     fabric.Object.prototype.controls.deleteControl = new fabric.Control({
       x: 0.5,
@@ -112,7 +209,7 @@ export default class extends Controller {
       cornerSize: 24
     });
 
-    // Add();
+    // DELETE ICON FROM CANVAS
 
     function deleteObject(eventData, transform) {
       const target = transform.target;
@@ -136,6 +233,7 @@ export default class extends Controller {
       ctx.restore();
     }
 
+
     // canvas.on('mouse:up', (options)=>{
     //   // console.log('on canvas mousedown', options.target ? options.target.type : '');
     //   this.update()
@@ -146,6 +244,7 @@ export default class extends Controller {
     //   // console.log('on canvas mouse dblclick', options.target ? options.target.type : '');
     // });
 
+
   }
 
   // Save the current location of all icons inside the canvas
@@ -155,8 +254,8 @@ export default class extends Controller {
     console.log(oImg);
     const form = new FormData()
 
+    // console.log("registered_item[rotation]", oImg.angle);
     form.append("registered_item[rotation]", oImg.angle);
-    console.log("registered_item[rotation]", oImg.angle);
     form.append("registered_item[x]", oImg.aCoords.tl.x);
     form.append("registered_item[y]", oImg.aCoords.tl.y);
 
