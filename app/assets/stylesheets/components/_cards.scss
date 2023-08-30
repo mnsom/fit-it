@@ -195,8 +195,11 @@ color:#07A2BF;
 
 .upload-placeholder {
   cursor: pointer;
+  transition: .3s;
+  border-radius: 3px;
 
   &:hover {
-    outline: solid 2px red;
+    box-shadow: 0 4px 20px rgba(7, 162, 191, .7);
+    // border-color: #07A2BF;
   }
 }
