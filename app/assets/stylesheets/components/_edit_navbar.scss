@@ -1,18 +1,21 @@
+.nav-bar-container {
+  position: sticky;
+  top:80px;
+  z-index: 999;
+  margin-left: 32px;
+}
+
 
 .nav-bar{
   display: flex;
   position: relative;
-  position: sticky;
-  top:80px;
-  left:0px;
   background-color: #07A2BF;
   height: 80px;
-  width:240px;
-  justify-content: space-around;
+  width:400px;
   align-items: center;
   z-index: 90;
   border-radius: 10px;
-  padding:12px
+  padding:12px;
 }
 .space{
   margin-right:10px;
@@ -21,7 +24,10 @@
   display: flex;
   list-style: none;
   vertical-align: center;
-  margin:0;
+  justify-content: space-around;
+  gap: 10px;
+  width: 100%;
+  margin:0 auto;
   padding:0;
 }
 .list a{
@@ -40,6 +46,7 @@ color: #232C33;
   margin:12px 4px 0;
   padding: 0;
   transition: 0.3s;
+  // min-width: 70px;
 }
 .item-title{
   font-size: 10px;
