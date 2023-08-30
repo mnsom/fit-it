@@ -1,0 +1,29 @@
+.third-title{
+    text-align: center;
+   padding:32px 0;
+    background-color: #07A2BF;
+    color:#fff;
+    font-size: 60px;
+  }
+.avator{
+  width:150px;
+  height:150px;
+  border-radius: 50%;
+  background-color: rgb(178, 178, 178);
+  border: solid 4px grey;
+}
+.usersvoice .voice{
+  margin-left:32px;
+  font-size: 32px;
+}
+
+.usersvoice{
+  margin-bottom:40px;
+}
+.usersvoice-wrap{
+  margin-top: 80px;
+}
+.reverse{
+  flex-direction: row-reverse;
+  margin-left:0;
+}
