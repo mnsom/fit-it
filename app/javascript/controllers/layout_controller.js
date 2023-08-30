@@ -6,7 +6,7 @@ import { Controller } from "@hotwired/stimulus";
 // Connects to data-controller="layout"
 
 export default class extends Controller {
-  static values = {imgUrl: String, furnitures: String, scale: Number}
+  static values = {imgUrl: String, furnitures: String, scale: Number, id: Number}
   connect() {
     console.log("hello from layout_controller.js")
     const furnitures = JSON.parse(this.furnituresValue)
@@ -14,12 +14,13 @@ export default class extends Controller {
     // console.log(furnitures);
     // console.log(this.scaleValue);
 
+    // FLOORPLAN IMG TO CANVAS
     // center and add the image in the canvas
     const canvas = new fabric.Canvas('canvas')
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
-      scaleX: 1.2,
-      scaleY: 1.2,
+      scaleX: this.scaleValue,
+      scaleY: this.scaleValue,
       top: center.top,
       left: center.left,
       originX: 'center',
@@ -28,7 +29,7 @@ export default class extends Controller {
     });
 
 
-
+    // SCALER FUNCTION
     //draw a straight line for ruler
     var drawLineMode = false;
     var startPoint = null;
@@ -48,17 +49,16 @@ export default class extends Controller {
     });
 
     // Function to scale the background image
-    function scaleBackgroundImage(scaleFactor) {
+    function scaleBackgroundImage(scaleFactor, id) {
       var backgroundImage = canvas.backgroundImage;
       if (backgroundImage) {
           backgroundImage.scaleX = scaleFactor;
           backgroundImage.scaleY = scaleFactor;
 
           canvas.renderAll();
+          updateBackgroundImage(scaleFactor, id);
       }
     };
-
-
 
     // Function to draw a line between the start and end points
     function drawLine() {
@@ -73,6 +73,7 @@ export default class extends Controller {
 
     // anything between the starpoint and enpoint is pixels, and there is the scale
     // Event listener for mouse down on the canvas
+    const id = this.idValue
     canvas.on('mouse:down', function(event) {
       if (drawLineMode) {
           if (!startPoint) {
@@ -84,7 +85,7 @@ export default class extends Controller {
               var scaleInput = prompt("How long is this wall? (cm)");
               if (scaleInput !== null && !isNaN(scaleInput)) {
                   var scaleFactor = parseFloat(scaleInput);
-                  scaleBackgroundImage(scaleFactor);
+                  scaleBackgroundImage(scaleFactor, id);
               };
             startPoint = null;
             endPoint = null;
@@ -96,38 +97,28 @@ export default class extends Controller {
     });
 
     // Save background scaled image
-    function updateBackgroundImage(url, scaleX, scaleY) {
-      // 2. Set the new background image
-      canvas.backgroundImage = null;    // 1. Clear the existing background image
-      const center = canvas.getCenter();  // 2. Set the new background image
-      canvas.setBackgroundImage(url, canvas.renderAll.bind(canvas), {
-        scaleX: scaleX,
-        scaleY: scaleY,
-        top: center.top,
-        left: center.left,
-        originX: 'center',
-        originY: 'center',
-        crossOrigin: "anonymous"
-      });
+    function updateBackgroundImage(scaleFactor, id) {
+      // 2. change just the scale
+      const form = new FormData()
+      form.append("layout[scale_ratio]", scaleFactor)
 
-      // Retrieve the target object (if needed) and perform the fetch
+      // fetch to save
       const csrfToken = document.querySelector("[name='csrf-token']").content;
-      fetch(`/registered_items/${target.cacheKey}`, {
+      fetch(`/layouts/${id}`, {
         method: "PATCH",
         headers: { "X-CSRF-Token": csrfToken, "Accept": "text/plain" },
         body: form
       })
       .then(response => response.text())
       .then((data) => {
-        // console.log(data)
+        console.log(data)
       });
     }
 
 
 
 
-
-    //insert a furniture Icon into the Layout
+    // INSERT FURNITURE ICON
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.url+".png", (img) => {
         // console.log(img);
@@ -200,6 +191,7 @@ export default class extends Controller {
       cornerSize: 24
     });
 
+    // DELETE ICON FROM CANVAS
     function deleteObject(eventData, transform) {
       const target = transform.target;
       console.log(target.cacheKey);

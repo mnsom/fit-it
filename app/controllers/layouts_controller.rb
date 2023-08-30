@@ -39,7 +39,7 @@ class LayoutsController < ApplicationController
     @layout = Layout.find(params[:id])
     authorize @layout
     if @layout.update(layout_params)
-      render json:, status: :ok
+      render json: { status: :ok }
     else
       render json: @layout.errors.messages, status: :unprocessable_entity
     end
@@ -79,7 +79,7 @@ class LayoutsController < ApplicationController
   private
 
   def layout_params
-    params.require(:layout).permit(:title, :photo)
+    params.require(:layout).permit(:title, :photo, :scale_ratio)
   end
 
   def ikea_fetch(url)
