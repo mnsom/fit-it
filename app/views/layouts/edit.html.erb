@@ -1,10 +1,10 @@
 <%= render "shared/navbar" %>
-<div class="edit-content container" data-controller="download-edit add-item-card" data-add-item-card-popup-value="<%= @popup == true %>">
-  <div>
-  <%= render 'shared/edit_navbar' %>
-        <%= render 'shared/add_item_card' %>
-        </div>
-  <%= render 'shared/modal_create_items', layout: @layout, item: @item %>
+<div class="edit-content" style= "margin: 0;" data-controller="download-edit add-item-card" data-add-item-card-popup-value="<%= @popup == true %>">
+  <div class="nav-bar-container">
+    <%= render 'shared/edit_navbar' %>
+    <%= render 'shared/modal_create_items', layout: @layout, item: @item %>
+  </div>
+
   <%# <%= render 'shared/ikea_form', layout: @layout, item: @item %>
   <div class="plan-floor my-3">
     <%= render 'layouts/canvas', layout: @layout  %>
