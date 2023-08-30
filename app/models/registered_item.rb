@@ -17,8 +17,9 @@ class RegisteredItem < ApplicationRecord
   end
 
   def detail_url
-    if item.url.present?
+    if item.photo.attached?
       item.url
+      "http://res.cloudinary.com/dvdyci2rl/image/upload/v1/#{Rails.env.downcase}/#{item.photo.key}.png"
     else
       "http://res.cloudinary.com/dvdyci2rl/image/upload/v1/#{Rails.env.downcase}/#{item.icon.photo.key}.png"
     end
