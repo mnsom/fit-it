@@ -20,7 +20,9 @@
 #icon .modal-body img{
   width:320px;
   height:320px;
+  object-fit: cover;
   margin-bottom: 20px;
+  object-position: center;
   margin-top:0;
 }
 

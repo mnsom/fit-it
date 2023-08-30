@@ -6,7 +6,7 @@ export default class extends Controller {
     console.log("connected!");
   }
 
-  static targets = ["input", "preview"]
+  static targets = ["input", "preview", "name", ""]
 
   displayPreview(event) {
     const reader = new FileReader();
@@ -15,5 +15,18 @@ export default class extends Controller {
     }
     reader.readAsDataURL(this.inputTarget.files[0])
     this.previewTarget.classList.remove('hidden');
+  }
+
+  uploadPhoto() {
+    this.inputTarget.click();
+  }
+
+  validate(e) {
+    e.preventDefault();
+    if (this.nameTarget.value == "") {
+      alert("missing title")
+    } else {
+      e.submit()
+    }
   }
 }

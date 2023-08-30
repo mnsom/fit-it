@@ -192,3 +192,11 @@ color:#07A2BF;
 .modal-body img {
   width: 100%;
 }
+
+.upload-placeholder {
+  cursor: pointer;
+
+  &:hover {
+    outline: solid 2px red;
+  }
+}
