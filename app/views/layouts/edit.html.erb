@@ -1,9 +1,9 @@
 <%= render "shared/navbar" %>
-<div class="edit-content container" data-controller="download-edit add-item-card" data-add-item-card-popup-value="<%= @popup == true %>">
+<div class="edit-content container" data-controller="download-edit add-item-card drag-items" data-add-item-card-popup-value="<%= @popup == true %>">
   <div>
-  <%= render 'shared/edit_navbar' %>
-        <%= render 'shared/add_item_card' %>
-        </div>
+    <%= render 'shared/edit_navbar' %>
+    <%= render 'shared/add_item_card' %>
+  </div>
   <%= render 'shared/modal_create_items', layout: @layout, item: @item %>
   <%# <%= render 'shared/ikea_form', layout: @layout, item: @item %>
   <div class="plan-floor my-3">
