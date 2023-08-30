@@ -33,23 +33,26 @@ export default class extends Controller {
 
 
     // SCALER FUNCTION
-    //draw a straight line for ruler
+    //draw a straight line for SCALER
     var drawLineMode = false;
     var startPoint = null;
     var endPoint = null;
 
-    // Event listener for the draw line mode button
+    // Event listener for the SCALER mode button
     var drawLineModeButton = document.getElementById('drawLineModeButton');
-    drawLineModeButton.addEventListener('click', function() {
-        drawLineMode = !drawLineMode; // Toggle the draw line mode
-        if (drawLineMode) {
-            canvas.selection = false; // Disable icon selection while in ruler mode
-            drawLineModeButton.querySelector('p').textContent = 'Exit';
-        } else {
-            canvas.selection = true; // Enable icon selection when exiting ruler mode
-            drawLineModeButton.querySelector('p').textContent = 'Ruler';
-        }
-    });
+    if (drawLineModeButton) {
+      drawLineModeButton.addEventListener('click', function() {
+          drawLineMode = !drawLineMode; // Toggle to enter the SCALER mode
+          if (drawLineMode) {
+              canvas.selection = false; // Disable icon selection while in SCALER mode
+              drawLineModeButton.querySelector('p').textContent = 'Exit';
+          } else {
+              canvas.selection = true; // Enable icon selection when exiting SCALER mode
+              drawLineModeButton.querySelector('p').textContent = 'Ruler';
+          }
+      });
+
+    }
 
     // Function to scale the background image
     function scaleBackgroundImage(scaleFactor, id) {
@@ -85,7 +88,7 @@ export default class extends Controller {
               endPoint = canvas.getPointer(event.e);
               drawLine();
               // Create a line prompt for user to insert a number
-              var scaleInput = prompt("How long is this wall? (cm)");
+              var scaleInput = prompt("Insert Scale (eg. 1.3)");
               if (scaleInput !== null && !isNaN(scaleInput)) {
                   var scaleFactor = parseFloat(scaleInput);
                   scaleBackgroundImage(scaleFactor, id);
@@ -101,7 +104,7 @@ export default class extends Controller {
 
     // Save background scaled image
     function updateBackgroundImage(scaleFactor, id) {
-      // 2. change just the scale
+      // change just the scale
       const form = new FormData()
       form.append("layout[scale_ratio]", scaleFactor)
 
@@ -119,18 +122,18 @@ export default class extends Controller {
     }
 
 
-
-
     // INSERT FURNITURE ICON
 
-    // TEMPORARY CODE
+    // DISPLAY FURNITURE WITH DOUBLE CLICK
     canvas.on('mouse:down', ()=>{
       console.log("hello hello");
     const furnitureInfo = document.querySelector("#furniture-info")
     furnitureInfo.classList.add("d-none")    });
+    // DISPLAY FURNITURE WITH DOUBLE CLICK
+
     //insert a furniture Icon into the Layout
-    // TEMPORARY CODE
     console.log(furnitures);
+
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.icon_url, (img) => {
         console.log(img);
@@ -156,11 +159,60 @@ export default class extends Controller {
         // console.log(element);
         console.log(oImg);
         console.log(canvas);
+
         canvas.add(oImg);
         oImg.on('modified',() => {
           console.log('on oImg mouseup');
           this.update(oImg)
         });
+
+        // Object Bounding Rectangle:
+        // canvas.on('after:render', function() {
+        //   canvas.contextContainer.strokeStyle = '#555';
+
+        //   canvas.forEachObject(function(obj) {
+        //     var bound = obj.getBoundingRect();
+        //     canvas.contextContainer.strokeRect(
+        //       bound.left - 20,
+        //       bound.top - 20,
+        //       bound.width + 40,
+        //       bound.height + 40
+        //     );
+
+        //     var isColliding = false;
+        //     console.log(isColliding);
+
+        //     canvas.forEachObject(function(anotherObj) {
+        //       if (obj !== anotherObj) {
+        //         var collisionBound = anotherObj.getBoundingRect();
+
+        //         if (
+        //           bound.left < collisionBound.left + collisionBound.width &&
+        //           bound.left + bound.width > collisionBound.left &&
+        //           bound.top < collisionBound.top + collisionBound.height &&
+        //           bound.top + bound.height > collisionBound.top
+        //         ) {
+        //           isColliding = true
+        //           console.log(isColliding);
+        //         };
+        //       };
+        //     });
+
+        //     if (isColliding) {
+        //       obj.set('stroke', 'red')
+        //     } else {
+        //       obj.set('stroke', '#555')
+        //     }
+
+        //   });
+        //   // canvas.requestRenderAll();
+        // });
+
+        // oImg.on('deselected', function() {
+        //   canvas.contextContainer.clearRect(0, 0, canvas.width, canvas.height);
+        //   canvas.requestRenderAll();
+        // });
+        // Object Bounding Rectangle END
 
         // display item information HTML
         oImg.on('mousedblclick',() => {
