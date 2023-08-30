@@ -19,7 +19,6 @@ export default class extends Controller {
     const canvas = new fabric.Canvas(this.indexValue ? `canvas-${this.indexValue}` : "canvas");
 
     // center and add the image in the canvas
-    const canvas = new fabric.Canvas('canvas')
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
 
