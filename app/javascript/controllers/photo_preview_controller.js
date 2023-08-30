@@ -26,7 +26,31 @@ export default class extends Controller {
     if (this.nameTarget.value == "") {
       alert("missing title")
     } else {
-      e.submit()
+      e.target.submit()
     }
   }
+
+  dragover(e) {
+    e.preventDefault()
+
+    // dragover したときに border の色を変える
+    this.inputTarget.classList.add('border-primary')
+  }
+
+  dragleave(e) {
+    e.preventDefault()
+    this.inputTarget.classList.remove('border-primary')
+  }
+
+  drop(e) {
+    e.preventDefault()
+    this.inputTarget.classList.remove('border-primary')
+    console.log("drop");
+
+    const files = e.dataTransfer.files
+    this.inputTarget.files = files
+    this.displayPreview(e)
+  }
+
+
 }
