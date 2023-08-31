@@ -11,8 +11,8 @@
           <%= f.input :url, placeholder:"Please enter URL if it's an IKEA product", input_html: { data: { action: "change->add-item-card#import" } } %>
           <div data-add-item-card-target="inputs">
             <%= f.input :title, label:"Name", error: "Name can't be blank",data: {add_item_card_target:"name"} %>
-            <%= f.input :d_length, label:"Length (cm)",error: "Length can't be blank", data: {add_item_card_target:"length"} %>
-            <%= f.input :d_width, label:"Width (cm)",error: "Width can't be blank", data: {add_item_card_target:"width"} %>
+            <%= f.input :d_length, label:"Length (cm)",error: "Length is invalid", data: {add_item_card_target:"length"} %>
+            <%= f.input :d_width, label:"Width (cm)",error: "Width is invalid", data: {add_item_card_target:"width"} %>
             <fieldset class="mb-3 radio_buttons required item_icon">
               <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
               </legend>
