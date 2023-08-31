@@ -12,6 +12,8 @@ class Item < ApplicationRecord
   after_create :add_ikea_photo
 
   def add_ikea_photo
+    return if url == ""
+
     html_file = URI.open(url).read
     html_doc = Nokogiri::HTML.parse(html_file)
     img_url = html_doc.search(".pip-image").attribute("src").value
