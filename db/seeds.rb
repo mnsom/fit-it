@@ -31,7 +31,7 @@ chair1 = Icon.create!(name: "Chair1")
 chair1.photo.attach(io: File.open("app/assets/images/seed_item_pic/Chair1.svg"),
                     filename: "Chair1.svg",
                     content_type: 'image/svg')
-Item.create!(title: "chair", d_length: 50, d_width: 50, icon: Chair1)
+Item.create!(title: "chair", d_length: 50, d_width: 50, icon: chair1)
 
 fridge = Icon.create!(name: "Fridge")
 fridge.photo.attach(io: File.open("app/assets/images/seed_item_pic/Fridge.svg"),
@@ -169,9 +169,6 @@ layout1 = Layout.create!(title: "Meguro", scale_ratio: 1.5, user: oscar)
 layout1.photo.attach(io: File.open("app/assets/images/seed_item_pic/Meguro.jpg"),
                     filename: "Meguro.jpg",
                     content_type: 'image/jpg')
-
-
-
 
 
 puts "Created #{User.count} users, #{Icon.count} icons,  #{Item.count} items, and #{Layout.count} layouts :)"
