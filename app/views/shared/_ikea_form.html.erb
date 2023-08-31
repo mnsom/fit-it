@@ -13,7 +13,7 @@
         <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
         <% Icon.all.each do |icon| %>
           <div class="category-item">
-            <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
+            <input class="form-check-input radio_buttons required category-selector" type="radio" <%= "checked" if icon == @item.icon %> value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
             <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
               <%= cl_image_tag(icon.photo.key) %>
               <div class="py-2 label-text d-flex justify-content-center align-items-center">
