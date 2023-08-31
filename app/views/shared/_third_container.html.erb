@@ -1,22 +1,32 @@
 <div class="third-title">User's voices</div>
 <div class="container">
   <div class="usersvoice-wrap">
-    <div class="usersvoice d-flex">
-      <div class="avator"></div>
-      <div class="voice">I was anxious about moving for the first time, but this app helped me visualize the layout beforehand so I could finish the move smoothly!</div>
+    <div class="usersvoices d-flex">
+      <div class="layout-pic"><%= image_tag "layoutest1.PNG" %></div>
+      <div class="usersvoice">
+        <img src="https://avatars.githubusercontent.com/u/26819547?v=4" class="avator">
+        <div class="voice">I was anxious about moving for the first time, but this app helped me visualize the layout beforehand so I could finish the move smoothly!</div>
+      </div>
     </div>
-    <div class="usersvoice d-flex">
-      <div class="avator"></div>
-      <div class="voice">My friend recommended this app and I love it! This is a life changing experience.<br>It's simple and really easy to use!</div>
+    <div class="usersvoices d-flex reverse">
+      <div class="layout-pic"><%= image_tag "layoutest2.PNG" %></div>
+      <div class="usersvoice">
+        <img src="https://avatars.githubusercontent.com/u/25542223?v=4" class="avator">
+        <div class="voice">I used FIT-IT when I moved to Osaka. I was able to create and compare different layouts and enjoyed preparing for my move!</div>
+      </div>
     </div>
-    <div class="usersvoice d-flex">
-      <div class="avator"></div>
-      <div class="voice">I used FIt-it when I moved to Osaka.<br>I was able to create and compare different layouts and enjoyed preparing for my move!</div>
+    <div class="usersvoices d-flex">
+      <div class="layout-pic"><%= image_tag "layoutest3.PNG" %></div>
+      <div class="usersvoice">
+        <img src="https://avatars.githubusercontent.com/u/34345789?v=4" class="avator">
+        <div class="voice">My friend recommended this app and I love it! This is a life changing experience.<br>
+          It’s simple and really easy to use!</div>
+      </div>
     </div>
   </div>
   <div class="btn-container">
     <div class="btn center-block">
-      <%= link_to 'Get started!', layouts_path, class:"btn btn-primary text-light p-3 px-5 fs-5" %>
+      <%= link_to 'Get started!', layouts_path, class:"btn btn-primary text-light p-3 px-5 fs-5 lp-btn" %>
     </div>
   </div>
 </div>
