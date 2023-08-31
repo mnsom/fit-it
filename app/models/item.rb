@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   after_create :add_ikea_photo
 
   def add_ikea_photo
-    return if url == ""
+    return if url == "" || url.nil?
 
     html_file = URI.open(url).read
     html_doc = Nokogiri::HTML.parse(html_file)
