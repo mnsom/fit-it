@@ -93,13 +93,16 @@ class LayoutsController < ApplicationController
     item_element = html_doc.search(".pip-temp-price-module__information")
     title = item_element.search(".pip-header-section__title--big").text.strip
     category = item_element.search(".pip-header-section__description-text").text.strip.downcase
-    icons = Icon.all
-    type = icons.find { |icon| category.include?(icon.name.downcase) }
     dimensions = item_element.search(".pip-link-button.pip-header-section__description-measurement").text.strip
     width, length = dimensions.split("x")
-    width.to_i
-    length.to_i
-
+    width = width.to_i
+    length = length.to_i
+    icons = Icon.all
+    if category.include?("bed")
+      type = width > 100 ? Icon.find_by(name: "Double bed") : Icon.find_by(name: "Single bed")
+    else
+      type = icons.find { |icon| category.include?(icon.name.downcase) }
+    end
     { title: title.split.first, d_width: width, d_length: length, url: url, icon: type }
   rescue
     {}
