@@ -34,7 +34,7 @@ static targets=["popup", "modal", "form", "inputs"]
         .then(response => response.text())
         .then((data) => {
           console.log(data);
-          this.inputsTarget.innerHTML = data
+          this.formTarget.outerHTML = data
         })
     }
   }
