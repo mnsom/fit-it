@@ -8,7 +8,7 @@ static values = {
 
 static targets=["popup", "modal", "form", "inputs"]
   connect() {
-    console.log("connected")
+    console.log("add item card connected")
     if (this.popupValue){
       this.popupTarget.classList.remove("d-none")
       const myModal = new bootstrap.Modal(this.modalTarget)
