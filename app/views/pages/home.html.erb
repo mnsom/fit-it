@@ -1,23 +1,6 @@
 <div class = "wrapper">
-  <%= render 'shared/landingbanner' %>
-  <div class="container text-center">
-    <%= image_tag "LandingPageBg.svg" %>
-  </div>
-  <br>
-  <div class="container text-center">
-    <% if user_signed_in? %>
-      <%= link_to 'Click here to start creating your layout!', layouts_path, class:"btn btn-primary text-light p-3 fs-5" %>
-    <% else %>
-      <div class="col align-self-center mb-2">
-        <%= link_to new_user_session_path do %>
-          <button type="button" class="btn btn-primary" style="--round-corners: 15px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.5rem;"> Login</button>
-        <% end %>
-      </div>
-      <div class="col align-self-center">
-        <%= link_to new_user_registration_path do %>
-          <a href="/users/sign_up" class="login-btn">Sign up</a>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+  <div><%= render 'shared/landingbanner' %></div><br>
+  <div><%= render 'shared/first_container' %></div><br>
+  <div><%= render 'shared/second_container' %></div>
+  <div><%= render 'shared/third_container' %></div>
 </div>

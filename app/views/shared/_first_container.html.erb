@@ -1,0 +1,31 @@
+  <div class="container text-center d-flex">
+    <div class="pic-container">
+      <%= image_tag "LandingPageBg.svg" %>
+      <div class="circles d-flex justify-content-center mt-3">
+        <div class="circle"><span>30,000</span><br>
+          download!!</div>
+        <div class="circle">The <span>trend</span><br>
+          app in 2023</div>
+        <div class="circle">Always <span>FREE</span><br>
+          to use!!!</div>
+      </div>
+    </div>
+    <div class="text-container text-center">
+      <div class="title">Want to arrange the interior of your houses easily?<br></div>
+        <div>Use <span>FIT IT!</span></div>
+      <% if user_signed_in? %>
+        <%= link_to 'Get started!', layouts_path, class:"btn btn-primary text-light p-3 fs-5 px-5" %>
+      <% else %>
+        <div class="col align-self-center mb-2">
+          <%= link_to new_user_session_path do %>
+            <button type="button" class="btn btn-primary" style="--round-corners: 15px; --bs-btn-padding-y: .25rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.5rem;"> Login</button>
+          <% end %>
+        </div>
+        <div class="col align-self-center">
+          <%= link_to new_user_registration_path do %>
+            <a href="/users/sign_up" class="login-btn">Sign up</a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
