@@ -13,7 +13,7 @@
           <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="additembar">
+        <div id="additembar" class="modal-body">
           <%= simple_form_for @layout, html: { data: { controller: "photo-preview", action:"submit->photo-preview#validate" } } do |f| %>
             <%= f.input :title, class: "title", input_html: {data: {photo_preview_target: "name"}} %>
             <%= image_tag "C&D image.png", width: 300, class: "hidden upload-placeholder", data: { photo_preview_target: "preview", action:"click->photo-preview#uploadPhoto dragover->photo-preview#dragover dragleave->photo-preview#dragleave drop->photo-preview#drop" } %>
