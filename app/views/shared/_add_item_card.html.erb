@@ -1,6 +1,6 @@
 <div class="popup-items <%= "d-none" unless params[:item_created] == "true" %>" data-add-item-card-target="popup">
   <div class="items">
-    <div class="additem d-flex align-items-center" id="plusmark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="additem d-flex align-items-center" id="plusmark" data-bs-toggle="modal" data-bs-target="#addItemModal">
       <%= image_tag 'add_item.svg', class: "d-block mx-auto bg-white rounded-circle"%>
     </div>
     <% @items.each do |item| %>
