@@ -3,7 +3,7 @@
 
 .circle{
   border-radius: 50%;
-  background-color: #6bc6d6;
+  background-color: #4dbfd3;
   color:white;
   margin: 10px;
   width:160px;
@@ -60,15 +60,16 @@
   margin-bottom:40px;
 }
 .text-container{
-  margin:70px 0 0 70px;
-  padding-top:60px;
+  margin:70px 0 0 50px;
+  font-size:40px;
+  line-height: 60px;
 }
 .text-container .title{
-  margin: 30px 0;
-  font-size:40px;
-  line-height: 50px;
+  margin-bottom: 30px;
 }
-.text-container .title span{
+
+.text-container span{
   font-weight: bold;
   font-size: 64px;
+  margin-top: 20px;
 }
