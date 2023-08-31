@@ -105,7 +105,7 @@ class LayoutsController < ApplicationController
     else
       type = icons.find { |icon| category.include?(icon.name.downcase) }
     end
-    { title: title.split.first, d_width: width, d_length: length, url: url, icon: type }
+    { title: title.split.first[0..5], d_width: width, d_length: length, url: url, icon: type }
   rescue
     {}
   end
