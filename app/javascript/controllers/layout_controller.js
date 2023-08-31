@@ -3,7 +3,8 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="layout"
 
 export default class extends Controller {
-  static values = {imgUrl: String, furnitures: Array, scale: Number, index: Number}
+
+  static values = {imgUrl: String, furnitures: Array, scale: Number, index: Number, id: Number}
   connect() {
     console.log("hello from layout_controller.js")
     // console.log("lau¥yout controller", this.element);
@@ -12,12 +13,17 @@ export default class extends Controller {
     console.log(this.scaleValue);
 
 
+
+    // FLOORPLAN IMG TO CANVAS
+
     const canvas = new fabric.Canvas(this.indexValue ? `canvas-${this.indexValue}` : "canvas");
+
     // center and add the image in the canvas
     const center = canvas.getCenter();
     canvas.setBackgroundImage(this.imgUrlValue, canvas.renderAll.bind(canvas), {
-      scaleX: 1.4,
-      scaleY: 1.4,
+
+      scaleX: this.scaleValue,
+      scaleY: this.scaleValue,
       top: center.top,
       left: center.left,
       originX: 'center',
@@ -25,14 +31,109 @@ export default class extends Controller {
       crossOrigin: "anonymous"
     });
 
-    // TEMPORARY CODE
+
+    // SCALER FUNCTION
+    //draw a straight line for SCALER
+    var drawLineMode = false;
+    var startPoint = null;
+    var endPoint = null;
+
+    // Event listener for the SCALER mode button
+    var drawLineModeButton = document.getElementById('drawLineModeButton');
+    if (drawLineModeButton) {
+      drawLineModeButton.addEventListener('click', function() {
+          drawLineMode = !drawLineMode; // Toggle to enter the SCALER mode
+          if (drawLineMode) {
+              canvas.selection = false; // Disable icon selection while in SCALER mode
+              drawLineModeButton.querySelector('p').textContent = 'Exit';
+          } else {
+              canvas.selection = true; // Enable icon selection when exiting SCALER mode
+              drawLineModeButton.querySelector('p').textContent = 'Ruler';
+          }
+      });
+
+    }
+
+    // Function to scale the background image
+    function scaleBackgroundImage(scaleFactor, id) {
+      var backgroundImage = canvas.backgroundImage;
+      if (backgroundImage) {
+          backgroundImage.scaleX = scaleFactor;
+          backgroundImage.scaleY = scaleFactor;
+
+          canvas.renderAll();
+          updateBackgroundImage(scaleFactor, id);
+      }
+    };
+
+    // Function to draw a line between the start and end points
+    function drawLine() {
+      var line = new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
+          stroke: '#07A2BF',
+          strokeWidth: 4,
+      });
+
+      canvas.add(line);
+      canvas.renderAll();
+    };
+
+    // anything between the starpoint and enpoint is pixels, and there is the scale
+    // Event listener for mouse down on the canvas
+    const id = this.idValue
+    canvas.on('mouse:down', function(event) {
+      if (drawLineMode) {
+          if (!startPoint) {
+              startPoint = canvas.getPointer(event.e);
+          } else if (!endPoint) {
+              endPoint = canvas.getPointer(event.e);
+              drawLine();
+              // Create a line prompt for user to insert a number
+              var scaleInput = prompt("Insert Scale (eg. 1.3)");
+              if (scaleInput !== null && !isNaN(scaleInput)) {
+                  var scaleFactor = parseFloat(scaleInput);
+                  scaleBackgroundImage(scaleFactor, id);
+              };
+            startPoint = null;
+            endPoint = null;
+          };
+          canvas.on('modified', () => {
+          this.update(canvas)
+        });
+      };
+    });
+
+    // Save background scaled image
+    function updateBackgroundImage(scaleFactor, id) {
+      // change just the scale
+      const form = new FormData()
+      form.append("layout[scale_ratio]", scaleFactor)
+
+      // fetch to save
+      const csrfToken = document.querySelector("[name='csrf-token']").content;
+      fetch(`/layouts/${id}`, {
+        method: "PATCH",
+        headers: { "X-CSRF-Token": csrfToken, "Accept": "text/plain" },
+        body: form
+      })
+      .then(response => response.text())
+      .then((data) => {
+        console.log(data)
+      });
+    }
+
+
+    // INSERT FURNITURE ICON
+
+    // DISPLAY FURNITURE WITH DOUBLE CLICK
     canvas.on('mouse:down', ()=>{
       console.log("hello hello");
     const furnitureInfo = document.querySelector("#furniture-info")
     furnitureInfo.classList.add("d-none")    });
+    // DISPLAY FURNITURE WITH DOUBLE CLICK
+
     //insert a furniture Icon into the Layout
-    // TEMPORARY CODE
     console.log(furnitures);
+
     furnitures.forEach(element => {
       fabric.Image.fromURL(element.icon_url, (img) => {
         console.log(img);
@@ -58,11 +159,60 @@ export default class extends Controller {
         // console.log(element);
         console.log(oImg);
         console.log(canvas);
+
         canvas.add(oImg);
         oImg.on('modified',() => {
           console.log('on oImg mouseup');
           this.update(oImg)
         });
+
+        // Object Bounding Rectangle:
+        // canvas.on('after:render', function() {
+        //   canvas.contextContainer.strokeStyle = '#555';
+
+        //   canvas.forEachObject(function(obj) {
+        //     var bound = obj.getBoundingRect();
+        //     canvas.contextContainer.strokeRect(
+        //       bound.left - 20,
+        //       bound.top - 20,
+        //       bound.width + 40,
+        //       bound.height + 40
+        //     );
+
+        //     var isColliding = false;
+        //     console.log(isColliding);
+
+        //     canvas.forEachObject(function(anotherObj) {
+        //       if (obj !== anotherObj) {
+        //         var collisionBound = anotherObj.getBoundingRect();
+
+        //         if (
+        //           bound.left < collisionBound.left + collisionBound.width &&
+        //           bound.left + bound.width > collisionBound.left &&
+        //           bound.top < collisionBound.top + collisionBound.height &&
+        //           bound.top + bound.height > collisionBound.top
+        //         ) {
+        //           isColliding = true
+        //           console.log(isColliding);
+        //         };
+        //       };
+        //     });
+
+        //     if (isColliding) {
+        //       obj.set('stroke', 'red')
+        //     } else {
+        //       obj.set('stroke', '#555')
+        //     }
+
+        //   });
+        //   // canvas.requestRenderAll();
+        // });
+
+        // oImg.on('deselected', function() {
+        //   canvas.contextContainer.clearRect(0, 0, canvas.width, canvas.height);
+        //   canvas.requestRenderAll();
+        // });
+        // Object Bounding Rectangle END
 
         // display item information HTML
         oImg.on('mousedblclick',() => {
@@ -100,7 +250,6 @@ export default class extends Controller {
       br: false,
       bl: false
     });
-    // fabric.Object.prototype.hasBorders = false
 
     fabric.Object.prototype.controls.deleteControl = new fabric.Control({
       x: 0.5,
@@ -112,7 +261,7 @@ export default class extends Controller {
       cornerSize: 24
     });
 
-    // Add();
+    // DELETE ICON FROM CANVAS
 
     function deleteObject(eventData, transform) {
       const target = transform.target;
@@ -136,6 +285,7 @@ export default class extends Controller {
       ctx.restore();
     }
 
+
     // canvas.on('mouse:up', (options)=>{
     //   // console.log('on canvas mousedown', options.target ? options.target.type : '');
     //   this.update()
@@ -146,6 +296,7 @@ export default class extends Controller {
     //   // console.log('on canvas mouse dblclick', options.target ? options.target.type : '');
     // });
 
+
   }
 
   // Save the current location of all icons inside the canvas
@@ -155,8 +306,8 @@ export default class extends Controller {
     console.log(oImg);
     const form = new FormData()
 
+    // console.log("registered_item[rotation]", oImg.angle);
     form.append("registered_item[rotation]", oImg.angle);
-    console.log("registered_item[rotation]", oImg.angle);
     form.append("registered_item[x]", oImg.aCoords.tl.x);
     form.append("registered_item[y]", oImg.aCoords.tl.y);
 

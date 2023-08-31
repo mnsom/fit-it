@@ -17,12 +17,13 @@
         <div class="container" id="edit-canvas"
           data-controller="layout furniture-info"
           data-layout-scale-value= "<%= layout.scale_ratio %>"
+          data-layout-id-value= "<%= layout.id %>"
           data-layout-img-url-value="<%=cl_image_path(layout.photo.key)%>"
           data-layout-furnitures-value="<%=@layout_items[index].to_json %>"
           data-layout-index-value="<%= index + 1 %>">
           <%# raise %>
-          <canvas data-download-button-target="canvas" id="canvas-<%=index + 1%>" width="600" height="600" style="background-color: none; border: 1px solid #07A2BF"></canvas>
-          <%= render 'layouts/furniture_info' %>
+            <canvas data-download-button-target="canvas" id="canvas-<%=index + 1%>" width="700" height="700" style="background-color: none; border: 1px solid #07A2BF"></canvas>
+            <%= render 'layouts/furniture_info' %>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
@@ -32,6 +33,7 @@
         <div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" data-action="click->download-button#download" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
+          <%# <button type="button" data-action="modal" class="btn btn-secondary" data-action="click->download-button#delete">Close</button> %>
         </div>
       </div>
     </div>

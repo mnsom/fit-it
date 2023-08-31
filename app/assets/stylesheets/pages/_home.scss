@@ -12,11 +12,11 @@ a {
 
 #edit-canvas {
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
+  mix-blend-mode: multiply;
 }
 
-#furniture-info {
-  background-color: #07A2BF;
-  color: #fff;
+canvas {
+  border: none !important;
 }

@@ -6,9 +6,9 @@
 
   <ul class="list">
       <li class="list-btn space">
-        <button class="item"><i class="fa-solid fa-ruler"><p class="item-title">Ruler</p></i></button>
+        <button class="item" id="drawLineModeButton"><i class="fa-solid fa-ruler"><p class="item-title">Ruler</p></i></button>
       </li>
-      <li class="list-btn space">
+      <li class="list-btn">
         <button class="item" style="cursor: pointer" data-action="click->add-item-card#toggle"><i class="fa-solid fa-box-open"><p class="item-title">items</p></i></button>
       </li>
       <%# <li class="list-btn">
@@ -18,5 +18,7 @@
         <button type="button" data-action="click->download-edit#download" class="item"><i class="fa-solid fa-download"><p class="item-title">download</p></i></button>
       </li>
   </ul>
+  <%= render 'shared/add_item_card' %>
+
 </div>
 <%# <canvas id="canvas" width="150" height="150" data-download-button-target="canvas"></canvas> %>
