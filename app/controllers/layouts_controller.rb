@@ -10,6 +10,7 @@ class LayoutsController < ApplicationController
   end
 
   def edit
+    @transparent_navbar = true
     @layout = Layout.find(params[:id])
     authorize @layout
     @item = Item.new

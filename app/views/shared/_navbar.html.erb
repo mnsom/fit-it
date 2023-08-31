@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky-top">
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon <%= "transparent" if @transparent_navbar %>">
   <div class="container-fluid">
     <%= link_to layouts_path, class: "navbar-brand" do %>
       <%= image_tag "logo.png" %>

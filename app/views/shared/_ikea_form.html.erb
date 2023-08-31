@@ -3,6 +3,8 @@
   </label>
   <input class="form-control string required" type="text" name="item[title]" id="item_title" value="<%= @item.title %>">
 </div>
+
+<div class="cm-inputs">
 <div class="mb-3 integer required item_d_length">
   <label class="form-label integer required" for="item_d_length">length <abbr title="required">*</abbr>
   </label>
@@ -13,6 +15,8 @@
   </label>
   <input class="form-control numeric integer required" type="number" step="1" name="item[d_width]" id="item_d_width" value="<%= @item.d_width %>">
 </div>
+</div>
+
 <fieldset class="mb-3 radio_buttons required item_icon">
   <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
   </legend>
