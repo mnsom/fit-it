@@ -11,7 +11,6 @@
           <%= f.input :url, label:"IKEA URL", placeholder:"Please enter URL if it's an IKEA product", input_html: { data: { action: "change->add-item-card#import" } } %>
           <div data-add-item-card-target="inputs">
             <%= f.input :title, label:"Name", error: "Name can't be blank",data: {add_item_card_target:"name"} %>
-
             <div class="d-flex">
             <%= f.input :d_length, label:"Length (cm)",error: "Length is invalid", data: {add_item_card_target:"length"} %>
             <%= f.input :d_width, label:"Width (cm)",error: "Width is invalid", data: {add_item_card_target:"width"} %>

@@ -27,11 +27,11 @@ table.photo.attach(io: File.open("app/assets/images/seed_item_pic/table.svg"),
 Item.create!(title: "table", d_length: 50, d_width: 90, icon: table)
 
 puts "table created"
-chair = Icon.create!(name: "Chair")
-chair.photo.attach(io: File.open("app/assets/images/seed_item_pic/Chair.svg"),
-                    filename: "Chair.svg",
+chair1 = Icon.create!(name: "Chair1")
+chair1.photo.attach(io: File.open("app/assets/images/seed_item_pic/Chair1.svg"),
+                    filename: "Chair1.svg",
                     content_type: 'image/svg')
-Item.create!(title: "chair", d_length: 50, d_width: 50, icon: chair)
+Item.create!(title: "chair", d_length: 50, d_width: 50, icon: Chair1)
 
 fridge = Icon.create!(name: "Fridge")
 fridge.photo.attach(io: File.open("app/assets/images/seed_item_pic/Fridge.svg"),
@@ -85,9 +85,9 @@ book_shelf.photo.attach(io: File.open("app/assets/images/seed_item_pic/Book-shel
                     filename: "Book-shelf.svg",
                     content_type: 'image/svg')
 
-chair = Icon.create!(name: "Chair")
-chair.photo.attach(io: File.open("app/assets/images/seed_item_pic/Chair.svg"),
-                    filename: "Chair.svg",
+chair2 = Icon.create!(name: "Chair2")
+chair2.photo.attach(io: File.open("app/assets/images/seed_item_pic/Chair2.svg"),
+                    filename: "Chair2.svg",
                     content_type: 'image/svg')
 
 pet_sofa = Icon.create!(name: "Pet sofa")
@@ -120,8 +120,8 @@ square_trash_can.photo.attach(io: File.open("app/assets/images/seed_item_pic/Squ
                     filename: "Square-trashcan.svg",
                     content_type: 'image/svg')
 
-strage_box = Icon.create!(name: "Storage box")
-strage_box.photo.attach(io: File.open("app/assets/images/seed_item_pic/Storagebox.svg"),
+storage_box = Icon.create!(name: "Storage box")
+storage_box.photo.attach(io: File.open("app/assets/images/seed_item_pic/Storagebox.svg"),
                     filename: "Storagebox.svg",
                     content_type: 'image/svg')
 
