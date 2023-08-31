@@ -1,35 +1,29 @@
-<div class="mb-3 string required item_title">
-  <label class="form-label string required" for="item_title">name <abbr title="required">*</abbr>
-  </label>
-  <input class="form-control string required" type="text" name="item[title]" id="item_title" value="<%= @item.title %>">
-</div>
-
-<div class="cm-inputs">
-<div class="mb-3 integer required item_d_length">
-  <label class="form-label integer required" for="item_d_length">length <abbr title="required">*</abbr>
-  </label>
-  <input class="form-control numeric integer required" type="number" step="1" name="item[d_length]" id="item_d_length" value="<%= @item.d_length %>">
-</div>
-<div class="mb-3 integer required item_d_width">
-  <label class="form-label integer required" for="item_d_width">width <abbr title="required">*</abbr>
-  </label>
-  <input class="form-control numeric integer required" type="number" step="1" name="item[d_width]" id="item_d_width" value="<%= @item.d_width %>">
-</div>
-</div>
-
-<fieldset class="mb-3 radio_buttons required item_icon">
-  <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
-  </legend>
-  <div class="category-wrapper">
-    <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
-    <% Icon.all.each do |icon| %>
-      <div class="category-item">
-        <input class="form-check-input radio_buttons required category-selector" type="radio" <%= "checked" if icon == @item.icon %> value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
-        <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
-          <%= cl_image_tag(icon.photo.key) %>
-          <%= icon.name %>
-        </label>
+<%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
+  <%= f.input :url, label:"IKEA URL", placeholder:"Please enter URL if it's an IKEA product", input_html: { data: { action: "change->add-item-card#import" } } %>
+  <div data-add-item-card-target="inputs">
+    <%= f.input :title, label:"Name", error: "Name can't be blank",data: {add_item_card_target:"name"} %>
+    <div class="d-flex">
+      <%= f.input :d_length, label:"Length (cm)",error: "Length is invalid", data: {add_item_card_target:"length"} %>
+      <%= f.input :d_width, label:"Width (cm)",error: "Width is invalid", data: {add_item_card_target:"width"} %>
+    </div>
+    <fieldset class="mb-3 radio_buttons required item_icon">
+      <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
+      </legend>
+      <div class="category-wrapper">
+        <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
+        <% Icon.all.each do |icon| %>
+          <div class="category-item">
+            <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
+            <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
+              <%= cl_image_tag(icon.photo.key) %>
+              <div class="py-2 label-text d-flex justify-content-center align-items-center">
+                <%= icon.name %>
+              </div>
+            </label>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </fieldset>
   </div>
-</fieldset>
+  <%= f.submit "Add furniture", class:"btn btn-primary" %>
+<% end %>

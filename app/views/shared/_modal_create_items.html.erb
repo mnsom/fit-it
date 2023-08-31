@@ -3,39 +3,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addItemModalLabel">Add an item</h5>
+        <h5 class="modal-title" id="addItemModalLabel">Add furniture</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body px-5">
-        <%= simple_form_for [layout, item], data: {add_item_card_target:"form"} do |f| %>
-          <%= f.input :url, label:"IKEA URL", placeholder:"Please enter URL if it's an IKEA product", input_html: { data: { action: "change->add-item-card#import" } } %>
-          <div data-add-item-card-target="inputs">
-            <%= f.input :title, label:"Name", error: "Name can't be blank",data: {add_item_card_target:"name"} %>
-            <div class="d-flex">
-            <%= f.input :d_length, label:"Length (cm)",error: "Length is invalid", data: {add_item_card_target:"length"} %>
-            <%= f.input :d_width, label:"Width (cm)",error: "Width is invalid", data: {add_item_card_target:"width"} %>
-            </div>
-            <fieldset class="mb-3 radio_buttons required item_icon">
-              <legend class="col-form-label pt-0">Type <abbr title="required">*</abbr>
-              </legend>
-              <div class="category-wrapper">
-                <input type="hidden" name="item[icon_id]" value="" autocomplete="off">
-                <% Icon.all.each do |icon| %>
-                  <div class="category-item">
-                    <input class="form-check-input radio_buttons required category-selector" type="radio" value="<%= icon.id %>" name="item[icon_id]" id="item_icon_<%= icon.id %>">
-                    <label class="form-check-label collection_radio_buttons" for="item_icon_<%= icon.id %>">
-                      <%= cl_image_tag(icon.photo.key) %>
-                      <div class="py-2 label-text d-flex justify-content-center align-items-center">
-                      <%= icon.name %>
-                      </div>
-                    </label>
-                  </div>
-                <% end %>
-              </div>
-            </fieldset>
-          </div>
-          <%= f.button :submit, class:"btn btn-primary" %>
-        <% end %>
+        <%= render "shared/ikea_form", layout: layout, item: item %>
       </div>
     </div>
   </div>

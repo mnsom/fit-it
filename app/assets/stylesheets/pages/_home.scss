@@ -6,7 +6,7 @@
 
 a {
   text-decoration: none;
-  font-size: 20px;
+  // font-size: 20px;
   padding-top: 10px;
 }
 
@@ -19,4 +19,8 @@ a {
 
 canvas {
   border: none !important;
+}
+
+.txt-small {
+  font-size: 0.8em;
 }
