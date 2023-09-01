@@ -24,3 +24,15 @@ canvas {
 .txt-small {
   font-size: 0.8em;
 }
+
+.scalebox-container {
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
+  text-align: center;
+}
+
+.scale-box {
+  background-color: black;
+  height: 10px;
+}
