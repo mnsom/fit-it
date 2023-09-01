@@ -58,14 +58,23 @@ export default class extends Controller {
 
     // Function to scale the background image
     function scaleBackgroundImage(scaleFactor, id) {
-      var backgroundImage = canvas.backgroundImage;
-      if (backgroundImage) {
-        backgroundImage.scaleX = scaleFactor;
-        backgroundImage.scaleY = scaleFactor;
+      // var backgroundImage = canvas.backgroundImage;
+      // if (backgroundImage) {
+      //   backgroundImage.scaleX = scaleFactor;
+      //   backgroundImage.scaleY = scaleFactor;
 
-        canvas.renderAll();
-        updateBackgroundImage(scaleFactor, id);
-      }
+      //   canvas.renderAll();
+      //   updateBackgroundImage(scaleFactor, id);
+      // }
+      const csrfToken = document.querySelector("[name='csrf-token']").content;
+      fetch(`/layouts/${id}`, {
+        method: "PUT",
+        headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json", },
+        body: JSON.stringify({
+          layout: {scale_ratio: scaleFactor}
+        })
+      });
+      window.location.reload();
     }
 
     // Function to draw a line between the start and end points
