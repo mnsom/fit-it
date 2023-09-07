@@ -1,10 +1,10 @@
-# 📚 Project Name
+# FIT IT
 
 Project description goes here
 
 _DROP SCREENSHOT HERE_
 <br>
-App home: https://WHATEVER.herokuapp.com
+App home: https://www.fit-it.homes/
    
 
 ## Getting Started
