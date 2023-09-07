@@ -46,7 +46,7 @@ rails s
 - [Figma](https://www.figma.com) — Prototyping
 
 ## Acknowledgements
-Inspired by Jane Mount's [Bibliophile](https://www.amazon.com/Bibliophile-Illustrated-Miscellany-Jane-Mount/dp/1452167230) and a story my father once told me: "Why do we keep books? ... We keep books because they remind us of the new perspectives and lessons we learned".
+The Le Wagon Tokyo Teaching Staff
 
 ## Team Members
 - [Douglas Berkley](https://www.linkedin.com/in/dougberkley/)
