@@ -49,7 +49,10 @@ rails s
 The Le Wagon Tokyo Teaching Staff
 
 ## Team Members
-- [Douglas Berkley](https://www.linkedin.com/in/dougberkley/)
+- [Oscar Alan Sanchez](https://github.com/Alan-Tecua)
+- [Misako Moriyama](https://github.com/MisaMisaM)
+- [Lisa Takenouchi](https://github.com/Lisatknc)
+- [Mana Misawa](https://github.com/mnsom)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
