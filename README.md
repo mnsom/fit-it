@@ -49,7 +49,10 @@ rails s
 Inspired by Jane Mount's [Bibliophile](https://www.amazon.com/Bibliophile-Illustrated-Miscellany-Jane-Mount/dp/1452167230) and a story my father once told me: "Why do we keep books? ... We keep books because they remind us of the new perspectives and lessons we learned".
 
 ## Team Members
-- [Douglas Berkley](https://www.linkedin.com/in/dougberkley/)
+- [Oscar Alan Sanchez](https://github.com/Alan-Tecua)
+- [Misako Moriyama](https://github.com/MisaMisaM)
+- [Lisa Takenouchi](https://github.com/Lisatknc)
+- [Mana Misawa](https://github.com/mnsom)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
