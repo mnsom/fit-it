@@ -3,7 +3,11 @@
 Project description goes here
 
 _DROP SCREENSHOT HERE_
-<br>
+<br>![Capture](https://github.com/mnsom/fit-it/assets/136877239/3ae3f403-f8f0-4d9e-9977-f7b4b778c778)
+![Capture2](https://github.com/mnsom/fit-it/assets/136877239/b54bf6f5-e6ac-444b-a70b-2caa36979cf3)
+![Capture3](https://github.com/mnsom/fit-it/assets/136877239/c11ab8bf-5294-42ab-9bec-17018855e267)
+![Capture4](https://github.com/mnsom/fit-it/assets/136877239/b5ef00ec-d455-4004-b0a7-0b18db336ed9)
+
 App home: https://www.fit-it.homes/
    
 
